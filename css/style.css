@@ -1,0 +1,56 @@
+body {
+	height: 100vh;
+	width: 100%;
+	background-image: url("../images/felt.jpg");
+	background-size: cover;
+	background-color: hsla(50, 33%, 25%, 0.3);
+}
+
+h1 {
+	text-align: center;
+	text-shadow: 1px 1px 2px white;
+	align-content: center;
+	margin: 30px 0;
+	font-size: 50px;
+}
+
+form {
+	display: flex;
+}
+
+.name {
+	align-items: center;
+	justify-content: center;
+}
+
+.name-input {
+	width: 33%;
+	height: 20px;
+}
+
+#play-area {
+	height: 50%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	position: absolute;
+	bottom: 0;
+}
+
+#card-location {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin: 30px;
+}
+
+.cards {
+	height: 275px;
+	width: 175px;
+	border: 2px solid black;
+	border-radius: 30px;
+	background-image: url("../images/Playing_Cards/playing-cards/card_back.png");
+	background-size: cover;
+	background-position: center;
+}
