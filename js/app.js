@@ -14,6 +14,11 @@ class player {
 		this.wallet = 1500,
 		this.currentBet = 0
 	}
+	makeBet (amount) {
+		this.currentBet = this.currentBet + amount;
+		this.wallet = this.wallet - amount;
+		return this.currentBet
+	}
 }
 
 
@@ -39,12 +44,30 @@ const game= {
 		$('#player2').text(`${this.player2.name}`);
 		$("#player1-stats").append(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
 		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		this.whosTurn = 1;
 		// $('#player1-stats').text(`Wallet: ${this.player1.wallet}`);
 		// $('#player2-stats').text(`Wallet: ${this.player2.wallet}`);
 	},
 	checkHandValue () {
 
-	}
+	},
+	changeTurn () {
+		if (this.whosTurn === 1) {
+			this.whosTurn = 2;
+		} else if (this.whosTurn === 2) {
+			this.whosTurn = 1;
+		}
+	},
+	makeBet (amount) {
+		$('#call').text(`Call ${Math.abs(this.player1.currentBet - this.player2.currentBet}`);
+		if (this.whosTurn === 1) {
+			this.player1.makeBet(amount);
+		} else if (this.whosTurn === 2) {
+			this.player2.makeBet(amount);
+		}
+		this.pot = this.player1.currentBet + this.player2.currentBet;
+		this.changeTurn()
+	},
 }
 
 

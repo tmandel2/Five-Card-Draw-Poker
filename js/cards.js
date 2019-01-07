@@ -330,7 +330,7 @@ const deck = [
 	},
 	{
 		value: 13,
-		altValue: 13
+		altValue: 13,
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/king_of_clubs2.png",
 		inPlay: null,
