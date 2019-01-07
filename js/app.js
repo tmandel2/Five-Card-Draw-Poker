@@ -86,6 +86,8 @@ const game = {
 			this.player2.currentCards[i] = randomPlayer2;
 			this.player1.currentCards[i].inPlay = true;
 			this.player2.currentCards[i].inPlay = true;
+			this.cardsInPlay.push(randomPlayer1);
+			this.cardsInPlay.push(randomPlayer2);
 		}
 		if (this.handNumber % 2 === 0) {
 			this.showPlayer2();
@@ -155,18 +157,15 @@ const game = {
 		if (this.whosTurn === 1) {
 			this.player2.winHand(this.player1.currentBet);
 			this.player1.loseHand(this.player1.currentBet);
-			this.pot = 0;
-			this.player2.handEnd();
-			this.player1.handEnd();
-			$('#call').text(`Check`);
 		} else {
 			this.player1.winHand(this.player2.currentBet);
 			this.player2.loseHand(this.player2.currentBet);
-			this.pot = 0;
-			this.player2.handEnd();
-			this.player1.handEnd();
-			$('#call').text(`Check`);
 		}
+		this.replaceCardsInDeck();
+		this.pot = 0;
+		this.player2.handEnd();
+		this.player1.handEnd();
+		$('#call').text(`Check`);
 		this.updateStats();
 		this.handNumber++;
 		this.dealCards();
@@ -194,14 +193,18 @@ const game = {
 		if (this.whosTurn === 1) {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player1.currentCards[i].held === false) {
-					this.player1.currentCards.splice(i, 1, this.randomCard());
+					let drawnCard = this.randomCard();
+					this.player1.currentCards.splice(i, 1, drawnCard);
+					this.cardsInPlay.push(drawnCard);
 				}
 			}
 			this.showPlayer1();
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
-					this.player2.currentCards.splice(i, 1, this.randomCard());
+					let drawnCard = this.randomCard();
+					this.player2.currentCards.splice(i, 1, drawnCard);
+					this.cardsInPlay.push(drawnCard);
 				}
 			}
 			this.showPlayer2();
@@ -258,6 +261,12 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
+	},
+	replaceCardsInDeck () {
+		for (let i = 0; i <= this.cardsInPlay.length -1 ; i++) {
+			deck.push(this.cardsInPlay[i]);
+		}
+		this.cardsInPlay = [];
 	}
 }
 
