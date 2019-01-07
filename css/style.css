@@ -83,9 +83,6 @@ form {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-/*	align-items: baseline;
-	position: absolute;
-	bottom: 0;*/
 }
 
  #hold-row {
@@ -109,7 +106,6 @@ form {
 	justify-content: space-between;
 	width: 100%;
 	margin: 0 20px;
-	/*margin: 30px;*/
 	visibility: hidden;
 }
 
@@ -117,9 +113,6 @@ form {
 	height: 275px;
 	width: 175px;
 	border-radius: 30px;
-	/*background-image: url("../images/Playing_Cards/playing-cards/card_back.png");*/
-	/*background-size: cover;*/
-	/*background-position: center;*/
 }
 
 #button-bar {
@@ -131,7 +124,6 @@ form {
 .actions {
 	width: 150px;
 	height: 40px;
-	/*align-items: center;*/
 }
 
 #bet-submit {
