@@ -42,7 +42,7 @@ class player {
 // Game Object
 
 
-const game= {
+const game = {
 	cardsInPlay: [],
 	remainingDeck: [],
 	pot: 0,
@@ -75,6 +75,17 @@ const game= {
 	},
 	dealCards () {
 // NEEDS TO GIVE CARDS TO THE PLAYER
+		for (let i = 0; i <= 4; i++) {
+			let randomPlayer1 = this.randomCard();		//Random cards dealt, but not removed from DECK yet
+			let randomPlayer2 = this.randomCard();
+			this.player1.currentCards[i] = randomPlayer1;
+			this.player2.currentCards[i] = randomPlayer2;
+			this.player1.currentCards[i].inPlay = true;
+			this.player2.currentCards[i].inPlay = true;
+		}
+// Will remove a random collection of 5 cards from the deck array, and push to player1 currentcards array.
+// Do the same for player 2.
+// Remove those cards from the deck.
 	},
 	changeTurn () {
 		if (this.whosTurn === 1) {
@@ -174,6 +185,14 @@ const game= {
 			$($cardClass).css('color', 'red');
 		} else if ($($cardClass).css('color') == 'rgb(255, 0, 0)') {
 			$($cardClass).css('color', 'lightgray');
+		}
+	},
+	randomCard () {
+		return deck[Math.floor(Math.random() * (deck.length))];
+	},
+	showPlayer1 () {
+		for (let i = 1; i <= 5; i++) {
+			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i-1].image);
 		}
 	}
 }
