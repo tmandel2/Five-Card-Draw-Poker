@@ -121,6 +121,18 @@ const game= {
 		}
 		this.updateStats();
 	},
+	allIn () {
+		if (this.whosTurn === 1) {
+			this.player1.makeBet(this.player1.wallet);
+			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
+		} else {
+			this.player2.makeBet(this.player2.wallet);
+			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
+		}
+		this.pot = this.player1.currentBet + this.player2.currentBet;
+		this.updateStats();
+		this.changeTurn();
+	},
 	updateStats () {
 		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
 		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
@@ -199,8 +211,13 @@ $('#call').on('click', (e) => {
 $('#fold').on('click', (e) => {
 	e.preventDefault();
 	game.makeFold();
+});
+
+$('#all-in').on('click', (e) => {
+	e.preventDefault();
+	game.allIn();
 })
 
 $('img').on('click', (e) => {
 	game.holdCard(e.target);
-})
+});
