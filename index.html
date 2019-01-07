@@ -15,24 +15,50 @@
 		<form class="name">
 			<input class="name-input" type="text" name="player1-name" id="player1-name-input" placeholder="What's your name, Player 1?">
 			<input class="name-input" type="text" name="player2-name" id="player2-name-input" placeholder="What's your name, Player 2?">
-			<input class="name-input" type="submit" name="players-submit" value="Pull up your seats">
+			<input class="name-input" type="submit" name="players-submit" id="players-submit" value="Click to Start">
 		</form>
 	</div>
 
+	<div id="player-names">
+		<div id="player1"></div>
+		<div id="player2"></div>
+	</div>
+
+	<div id="player-stats">
+		<div id="player1-stats" class="player-stats"></div>
+		<div id="player2-stats" class="player-stats"></div>
+	</div>
+
+	<div id="button-bar">
+		<input type="number" name="bet-amount" id="bet-amount" class="actions" placeholder="Increase Bet Amount">
+		<button id="bet-submit" class="actions">Make Bet</button>
+		<button id="call" class="actions">Call</button>
+		<button id="fold" class="actions">Fold</button>
+		<button id="all-in" class="actions">All-In</button>
+	</div>
+
+	<div id="hold-row">
+		<p id="hold1" class="holds">Hold</p>
+		<p id="hold2" class="holds">Hold</p>
+		<p id="hold3" class="holds">Hold</p>
+		<p id="hold4" class="holds">Hold</p>
+		<p id="hold5" class="holds">Hold</p>
+	</div>
 
 	<div id="play-area">
-		<!-- <aside id="player-stats">
-			<div id="player1-stats"></div>
-			<div id="player2-stats"></div>
-		</aside> -->
-
 		<div id="card-location">
-			<div id="card1" class="cards"></div>
+			<img src="images/Playing_Cards/playing-cards/card_back.png" id="card1" class="cards"></img>
+			<img src="images/Playing_Cards/playing-cards/card_back.png" id="card2" class="cards"></img>
+			<img src="images/Playing_Cards/playing-cards/card_back.png" id="card3" class="cards"></img>
+			<img src="images/Playing_Cards/playing-cards/card_back.png" id="card4" class="cards"></img>
+			<img src="images/Playing_Cards/playing-cards/card_back.png" id="card5" class="cards"></img>
+		<!-- 	<div id="card1" class="cards"></div>
 			<div id="card2" class="cards"></div>
 			<div id="card3" class="cards"></div>
 			<div id="card4" class="cards"></div>
-			<div id="card5" class="cards"></div>
+			<div id="card5" class="cards"></div> -->
 		</div>
+
 	</div>
 
 

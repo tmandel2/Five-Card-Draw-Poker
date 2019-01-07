@@ -26,10 +26,21 @@ const game= {
 	pot: 0,
 	player1: null,
 	player2: null,
+	whosTurn: null,
 	startGame () {
 		this.player1 = new player($('#player1-name-input').val());
 		this.player2 = new player($('#player2-name-input').val());
 		$('#player-inputs').remove();
+		$('#player-stats').css("visibility", "visible");
+		$('#player-names').css("visibility", "visible");
+		$('#hold-row').css("visibility", "visible");
+		$('#card-location').css("visibility", "visible");
+		$('#player1').text(`${this.player1.name}`);
+		$('#player2').text(`${this.player2.name}`);
+		$("#player1-stats").append(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
+		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		// $('#player1-stats').text(`Wallet: ${this.player1.wallet}`);
+		// $('#player2-stats').text(`Wallet: ${this.player2.wallet}`);
 	},
 	checkHandValue () {
 
@@ -78,4 +89,14 @@ $('.name-input').on('keypress', (e) => {
 $('#player-inputs').on('submit', (e) => {
 	e.preventDefault();
 	game.startGame();
+});
+
+$('#bet-amount').on('keypress', (e) => {
+	if(e.which === 13) {
+		e.preventDefault();
+	}
+});
+
+$('#bet').on('submit', (e) => {
+	e.preventDefault();
 });

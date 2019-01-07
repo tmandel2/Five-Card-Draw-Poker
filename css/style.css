@@ -10,8 +10,10 @@ h1 {
 	text-align: center;
 	text-shadow: 1px 1px 2px white;
 	align-content: center;
-	margin: 30px 0;
+	margin-bottom: 30px;
+	margin-top: 0;
 	font-size: 50px;
+	height: 60px;
 }
 
 form {
@@ -24,8 +26,56 @@ form {
 }
 
 .name-input {
-	width: 33%;
-	height: 20px;
+	width: 30%;
+	height: 50px;
+	border-radius: 30px;
+	text-align: center;
+	font-size: 20px;
+}
+
+#players-submit {
+	background-color: lightyellow;
+}
+
+#player1-name-input {
+	background-color: aliceblue;
+}
+
+#player2-name-input {
+	background-color: lavenderblush;
+}
+
+#player-names {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	visibility: hidden;
+	justify-content: space-between;
+}
+
+#player1, #player2 {
+	width: 45%;
+	font-size: 40px;
+	color: white;
+	text-align: center;
+}
+
+#player-stats {
+	height: 150px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	visibility: hidden;
+}
+
+#player1-stats, #player2-stats {
+	width: 45%;
+	border: 1px solid black;
+	margin: 10px;
+	background-color: lightgray;
+	align-content: center;
+	justify-content: center;
+	font-size: 30px;
 }
 
 #play-area {
@@ -33,24 +83,57 @@ form {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: baseline;
+/*	align-items: baseline;
 	position: absolute;
-	bottom: 0;
+	bottom: 0;*/
+}
+
+ #hold-row {
+ 	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	visibility: hidden;
+ }
+
+.holds {
+	height: 25px;
+	width: 175px;
+	text-align: center;
+	color: lightgray;
+	margin: 2px;
+	font-size: 20px;
 }
 
 #card-location {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	margin: 30px;
+	margin: 0 20px;
+	/*margin: 30px;*/
+	visibility: hidden;
 }
 
 .cards {
 	height: 275px;
 	width: 175px;
-	border: 2px solid black;
 	border-radius: 30px;
-	background-image: url("../images/Playing_Cards/playing-cards/card_back.png");
-	background-size: cover;
-	background-position: center;
+	/*background-image: url("../images/Playing_Cards/playing-cards/card_back.png");*/
+	/*background-size: cover;*/
+	/*background-position: center;*/
+}
+
+#button-bar {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.actions {
+	width: 150px;
+	height: 40px;
+	/*align-items: center;*/
+}
+
+#bet-submit {
+	margin-right: 20px;
 }
