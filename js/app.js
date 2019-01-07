@@ -234,7 +234,10 @@ const game = {
 		}
 	},
 	randomCard () {
-		return deck[Math.floor(Math.random() * (deck.length))];
+		let randomNumber = Math.floor(Math.random() * deck.length);
+		let dealtCard = deck.slice(randomNumber, randomNumber + 1);
+		deck.splice(randomNumber, 1);
+		return dealtCard[0];
 	},
 	showPlayer1 () {
 		for (let i = 1; i <= 5; i++) {
