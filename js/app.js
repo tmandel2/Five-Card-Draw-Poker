@@ -23,6 +23,7 @@ class Player {
 	}
 	handEnd () {
 		this.currentBet = 0;
+		this.currentCards = [];
 	}
 	winHand (amount) {
 		this.wallet = this.wallet + amount;
@@ -53,7 +54,7 @@ const game = {
 	whosTurn: null,
 	bettingRound: true,
 	drawingRound: false,
-	handNumber: 0,
+	handNumber: 1,
 	startGame () {
 		this.player1 = new Player($('#player1-name-input').val());
 		this.player2 = new Player($('#player2-name-input').val());
@@ -70,7 +71,6 @@ const game = {
 		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
 		this.whosTurn = 1;
 		this.dealCards();
-		this.showPlayer1()
 	},
 	checkHandValue () {
 // COMPARE THE VALUE OF THE PLAYERS' HANDS
@@ -86,6 +86,11 @@ const game = {
 			this.player2.currentCards[i] = randomPlayer2;
 			this.player1.currentCards[i].inPlay = true;
 			this.player2.currentCards[i].inPlay = true;
+		}
+		if (this.handNumber % 2 === 0) {
+			this.showPlayer2();
+		} else {
+			this.showPlayer1();
 		}
 // Will remove a random collection of 5 cards from the deck array, and push to player1 currentcards array.
 // Do the same for player 2.
@@ -153,14 +158,18 @@ const game = {
 			this.pot = 0;
 			this.player2.handEnd();
 			this.player1.handEnd();
+			$('#call').text(`Check`);
 		} else {
 			this.player1.winHand(this.player2.currentBet);
 			this.player2.loseHand(this.player2.currentBet);
 			this.pot = 0;
 			this.player2.handEnd();
 			this.player1.handEnd();
+			$('#call').text(`Check`);
 		}
 		this.updateStats();
+		this.handNumber++;
+		this.dealCards();
 	},
 	allIn () {
 		if (this.whosTurn === 1) {
@@ -182,6 +191,21 @@ const game = {
 		this.drawingRound = true;
 	},
 	drawCards () {
+		if (this.whosTurn === 1) {
+			for (let i = 0; i <= 4; i++) {
+				if (this.player1.currentCards[i].held === false) {
+					this.player1.currentCards.splice(i, 1, this.randomCard());
+				}
+			}
+			this.showPlayer1();
+		} else {
+			for (let i = 0; i <= 4; i++) {
+				if (this.player2.currentCards[i].held === false) {
+					this.player2.currentCards.splice(i, 1, this.randomCard());
+				}
+			}
+			this.showPlayer2();
+		}
 
 	},
 	updateStats () {
