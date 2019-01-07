@@ -19,7 +19,6 @@ class Player {
 	}
 	makeBet (amount) {
 		this.currentBet = amount;
-		this.wallet = this.wallet - amount;
 		return this.currentBet
 	}
 	handEnd () {
@@ -27,6 +26,9 @@ class Player {
 	}
 	winHand (amount) {
 		this.wallet = this.wallet + amount;
+	}
+	loseHand (amount) {
+		this.wallet = this.wallet - amount;
 	}
 	handValue () {
 		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
@@ -146,12 +148,14 @@ const game = {
 	},
 	makeFold () {
 		if (this.whosTurn === 1) {
-			this.player2.winHand(this.pot);
+			this.player2.winHand(this.player1.currentBet);
+			this.player1.loseHand(this.player1.currentBet);
 			this.pot = 0;
 			this.player2.handEnd();
 			this.player1.handEnd();
 		} else {
-			this.player1.winHand(this.pot);
+			this.player1.winHand(this.player2.currentBet);
+			this.player2.loseHand(this.player2.currentBet);
 			this.pot = 0;
 			this.player2.handEnd();
 			this.player1.handEnd();
@@ -181,8 +185,8 @@ const game = {
 
 	},
 	updateStats () {
-		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
-		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet - this.player1.currentBet}</br>Current Bet: ${this.player1.currentBet}</p>`);
+		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet -this.player2.currentBet}</br>Current Bet: ${this.player2.currentBet}</p>`);
 	},
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
