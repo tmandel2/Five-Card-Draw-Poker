@@ -12,7 +12,8 @@ class player {
 	constructor (playerName) {
 		this.name = playerName,
 		this.wallet = 1500,
-		this.currentBet = 0
+		this.currentBet = 0,
+		this.currentCards = []
 	}
 	makeBet (amount) {
 		this.currentBet = this.currentBet + amount;
@@ -32,12 +33,15 @@ const game= {
 	player1: null,
 	player2: null,
 	whosTurn: null,
+	bettingRound: true,
+	drawingRound: false,
 	startGame () {
 		this.player1 = new player($('#player1-name-input').val());
 		this.player2 = new player($('#player2-name-input').val());
 		$('#player-inputs').remove();
 		$('#player-stats').css("visibility", "visible");
 		$('#player-names').css("visibility", "visible");
+		$("#button-bar").css("visibility", "visible");
 		$('#hold-row').css("visibility", "visible");
 		$('#card-location').css("visibility", "visible");
 		$('#player1').text(`${this.player1.name}`);
@@ -59,15 +63,28 @@ const game= {
 		}
 	},
 	makeBet (amount) {
-		$('#call').text(`Call ${Math.abs(this.player1.currentBet - this.player2.currentBet}`);
+		$('#call').text(`Call ${Math.abs(this.player1.currentBet - this.player2.currentBet)}`);
 		if (this.whosTurn === 1) {
 			this.player1.makeBet(amount);
 		} else if (this.whosTurn === 2) {
 			this.player2.makeBet(amount);
 		}
 		this.pot = this.player1.currentBet + this.player2.currentBet;
-		this.changeTurn()
+		this.updateStats();
+		this.changeTurn();
 	},
+	updateStats () {
+		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
+		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+	},
+	holdCard (card) {
+		const $cardClass = `.${$(card).attr('class')}`;
+		if($($cardClass).css('color') != 'rgb(255, 0, 0)') {
+			$($cardClass).css('color', 'red');
+		} else if ($($cardClass).css('color') == 'rgb(255, 0, 0)') {
+			$($cardClass).css('color', 'lightgray');
+		}
+	}
 }
 
 
@@ -123,3 +140,7 @@ $('#bet-amount').on('keypress', (e) => {
 $('#bet').on('submit', (e) => {
 	e.preventDefault();
 });
+
+$('img').on('click', (e) => {
+	game.holdCard(e.target);
+})

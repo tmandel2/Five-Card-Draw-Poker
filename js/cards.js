@@ -1,5 +1,6 @@
 const deck = [
 	{
+		held: false,
 		value: 2,
 		altValue: 2,
 		suit: "hearts",
@@ -7,6 +8,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 2,
 		altValue: 2,
 		suit: "spades",
@@ -14,6 +16,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 2,
 		altValue: 2,
 		suit: "diamonds",
@@ -21,6 +24,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 2,
 		altValue: 2,
 		suit: "clubs",
@@ -28,6 +32,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 3,
 		altValue: 3,
 		suit: "hearts",
@@ -35,6 +40,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 3,
 		altValue: 3,
 		suit: "spades",
@@ -42,6 +48,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 3,
 		altValue: 3,
 		suit: "diamonds",
@@ -49,6 +56,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 3,
 		altValue: 3,
 		suit: "clubs",
@@ -56,6 +64,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 4,
 		altValue: 4,
 		suit: "hearts",
@@ -63,6 +72,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 4,
 		altValue: 4,
 		suit: "spades",
@@ -70,6 +80,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 4,
 		altValue: 4,
 		suit: "diamonds",
@@ -77,6 +88,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 4,
 		altValue: 4,
 		suit: "clubs",
@@ -84,6 +96,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 5,
 		altValue: 5,
 		suit: "hearts",
@@ -91,6 +104,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 5,
 		altValue: 5,
 		suit: "spades",
@@ -98,6 +112,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 5,
 		altValue: 5,
 		suit: "diamonds",
@@ -105,6 +120,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 5,
 		altValue: 5,
 		suit: "clubs",
@@ -112,6 +128,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 6,
 		altValue: 6,
 		suit: "hearts",
@@ -119,6 +136,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 6,
 		altValue: 6,
 		suit: "spades",
@@ -126,6 +144,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 6,
 		altValue: 6,
 		suit: "diamonds",
@@ -133,6 +152,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 6,
 		altValue: 6,
 		suit: "clubs",
@@ -140,6 +160,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 7,
 		altValue: 7,
 		suit: "hearts",
@@ -147,6 +168,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 7,
 		altValue: 7,
 		suit: "spades",
@@ -154,6 +176,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 7,
 		altValue: 7,
 		suit: "diamonds",
@@ -161,6 +184,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 7,
 		altValue: 7,
 		suit: "clubs",
@@ -168,6 +192,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 8,
 		altValue: 8,
 		suit: "hearts",
@@ -175,6 +200,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 8,
 		altValue: 8,
 		suit: "spades",
@@ -182,6 +208,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 8,
 		altValue: 8,
 		suit: "diamonds",
@@ -189,6 +216,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 8,
 		altValue: 8,
 		suit: "clubs",
@@ -196,6 +224,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 9,
 		altValue: 9,
 		suit: "hearts",
@@ -203,6 +232,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 9,
 		altValue: 9,
 		suit: "spades",
@@ -210,6 +240,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 9,
 		altValue: 9,
 		suit: "diamonds",
@@ -217,6 +248,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 9,
 		altValue: 9,
 		suit: "clubs",
@@ -224,6 +256,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 10,
 		altValue: 10,
 		suit: "hearts",
@@ -231,6 +264,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 10,
 		altValue: 10,
 		suit: "spades",
@@ -238,6 +272,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 10,
 		altValue: 10,
 		suit: "diamonds",
@@ -245,6 +280,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 10,
 		altValue: 10,
 		suit: "clubs",
@@ -252,6 +288,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 11,
 		altValue: 11,
 		suit: "hearts",
@@ -259,6 +296,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 11,
 		altValue: 11,
 		suit: "spades",
@@ -266,6 +304,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 11,
 		altValue: 11,
 		suit: "diamonds",
@@ -273,6 +312,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 11,
 		altValue: 11,
 		suit: "clubs",
@@ -280,6 +320,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 12,
 		altValue: 12,
 		suit: "hearts",
@@ -287,6 +328,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 12,
 		altValue: 12,
 		suit: "spades",
@@ -294,6 +336,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 12,
 		altValue: 12,
 		suit: "diamonds",
@@ -301,6 +344,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 12,
 		altValue: 12,
 		suit: "clubs",
@@ -308,6 +352,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 13,
 		altValue: 13,
 		suit: "hearts",
@@ -315,6 +360,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 13,
 		altValue: 13,
 		suit: "spades",
@@ -322,6 +368,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 13,
 		altValue: 13,
 		suit: "diamonds",
@@ -329,6 +376,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 13,
 		altValue: 13,
 		suit: "clubs",
@@ -336,6 +384,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 14,
 		altValue: 1,
 		suit: "hearts",
@@ -343,6 +392,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 14,
 		altValue: 1,
 		suit: "spades",
@@ -350,6 +400,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 14,
 		altValue: 1,
 		suit: "diamonds",
@@ -357,6 +408,7 @@ const deck = [
 		inPlay: null,
 	},
 	{
+		held: false,
 		value: 14,
 		altValue: 1,
 		suit: "clubs",
