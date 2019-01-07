@@ -8,7 +8,7 @@
 // They will call or increase bet
 // They will have cards in their hands
 
-class player {
+class Player {
 	constructor (playerName) {
 		this.name = playerName,
 		this.wallet = 1500,
@@ -53,8 +53,8 @@ const game = {
 	drawingRound: false,
 	handNumber: 0,
 	startGame () {
-		this.player1 = new player($('#player1-name-input').val());
-		this.player2 = new player($('#player2-name-input').val());
+		this.player1 = new Player($('#player1-name-input').val());
+		this.player2 = new Player($('#player2-name-input').val());
 		$('#player-inputs').remove();
 		$('#player-stats').css("visibility", "visible");
 		$('#player-names').css("visibility", "visible");
@@ -90,6 +90,7 @@ const game = {
 // Remove those cards from the deck.
 	},
 	changeTurn () {
+		// const $cardClass = `.${$(card).attr('class')}`;
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
 			$('#player1').css('color', 'white');
@@ -185,10 +186,23 @@ const game = {
 	},
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
-		if($($cardClass).css('color') != 'rgb(255, 0, 0)') {
-			$($cardClass).css('color', 'red');
-		} else if ($($cardClass).css('color') == 'rgb(255, 0, 0)') {
-			$($cardClass).css('color', 'lightgray');
+		const whichCard = parseInt($cardClass.substring(5), 10);
+		if (this.whosTurn === 1) {
+			if (this.player1.currentCards[whichCard - 1].held === false) {
+				this.player1.currentCards[whichCard - 1].held = true;
+				$($cardClass).css('color', 'red');
+			} else if (this.player1.currentCards[whichCard - 1]) {
+				this.player1.currentCards[whichCard - 1] = false;
+				$($cardClass).css('color', 'lightgray');
+			}
+		} else if (this.whosTurn === 2) {
+			if (this.player2.currentCards[whichCard - 1].held === false) {
+				this.player2.currentCards[whichCard - 1].held = true;
+				$($cardClass).css('color', 'red');
+			} else if (this.player2.currentCards[whichCard - 1]) {
+				this.player2.currentCards[whichCard - 1] = false;
+				$($cardClass).css('color', 'lightgray');
+			}
 		}
 	},
 	randomCard () {
@@ -197,11 +211,21 @@ const game = {
 	showPlayer1 () {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+			if (this.player1.currentCards[i - 1].held === true) {
+				$(`#hold${i}`).css('color', 'red');
+			} else if (this.player1.currentCards[i - 1].held === false) {
+				$(`#hold${i}`).css('color', 'lightgray');
+			}
 		}
 	},
 	showPlayer2 () {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
+			if (this.player2.currentCards[i - 1].held === true) {
+				$(`#hold${i}`).css('color', 'red');
+			} else if (this.player2.currentCards[i - 1].held === false) {
+				$(`#hold${i}`).css('color', 'lightgray');
+			}
 		}
 	}
 }
