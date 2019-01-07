@@ -63,8 +63,12 @@ const game= {
 		}
 	},
 	makeBet () {
-		let $betAmount = $('#bet-amount').val();
-		$('#call').text(`Call ${Math.abs(this.player1.currentBet - this.player2.currentBet)}`);
+		let $betAmount = parseInt($('#bet-amount').val(), 10);
+		if (this.player1.currentBet - this.player2.currentBet > 0) {
+			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
+		} else if (this.player1.currentBet - this.player2.currentBet < 0) {
+			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
+		}
 		if (this.whosTurn === 1) {
 			this.player1.makeBet($betAmount);
 		} else if (this.whosTurn === 2) {
@@ -139,7 +143,7 @@ $('#bet-amount').on('keypress', (e) => {
 	}
 });
 
-$('#bet').on('submit', (e) => {
+$('#bet-submit').on('click', (e) => {
 	e.preventDefault();
 	game.makeBet();
 });
