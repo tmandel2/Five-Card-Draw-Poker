@@ -14,10 +14,11 @@ class player {
 		this.wallet = 1500,
 		this.currentBet = 0,
 		this.currentCards = [],
-		this.currentHandValue = 0
+		this.currentHandValue = 0,
+		this.usedCardsForHand = []
 	}
 	makeBet (amount) {
-		this.currentBet = this.currentBet + amount;
+		this.currentBet = amount;
 		this.wallet = this.wallet - amount;
 		return this.currentBet
 	}
@@ -26,6 +27,14 @@ class player {
 	}
 	winHand (amount) {
 		this.wallet = this.wallet + amount;
+	}
+	handValue () {
+		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
+		// Need to capture card value of cards used, and return high to low.
+		// Then need to return high to low of rest of cards
+
+		// Straight flush: check flush, if flush, check for straight
+		// full house: check 3 of a kind, then check pair
 	}
 }
 
@@ -58,11 +67,14 @@ const game= {
 		$("#player1-stats").append(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
 		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
 		this.whosTurn = 1;
-		// $('#player1-stats').text(`Wallet: ${this.player1.wallet}`);
-		// $('#player2-stats').text(`Wallet: ${this.player2.wallet}`);
 	},
 	checkHandValue () {
-
+// COMPARE THE VALUE OF THE PLAYERS' HANDS
+// If the values are the same, need to see which of highest used card
+// 
+	},
+	dealCards () {
+// NEEDS TO GIVE CARDS TO THE PLAYER
 	},
 	changeTurn () {
 		if (this.whosTurn === 1) {
@@ -78,9 +90,9 @@ const game= {
 	makeBet () {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
 		if (this.whosTurn === 1) {
-			this.player1.makeBet($betAmount);
+			this.player1.makeBet(this.player2.currentBet + $betAmount);
 		} else if (this.whosTurn === 2) {
-			this.player2.makeBet($betAmount);
+			this.player2.makeBet(this.player1.currentBet + $betAmount);
 		}
 		if (this.player1.currentBet - this.player2.currentBet > 0) {
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
@@ -93,19 +105,28 @@ const game= {
 		this.updateStats();
 		this.changeTurn();
 	},
+	callOrDraw () {
+		if ($('#call').text() === 'Draw') {
+			console.log('draw');
+			this.drawCards();
+		} else {
+			this.makeCall();
+		}
+	},
 	makeCall () {
 		if (this.player1.currentBet > this.player2.currentBet) {
 			let $currentBet = this.player1.currentBet - this.player2.currentBet;
-			this.player2.makeBet($currentBet);
+			this.player2.makeBet($currentBet + this.player2.currentBet);
 		} else if (this.player1.currentBet < this.player2.currentBet) {
 			let $currentBet = this.player2.currentBet - this.player1.currentBet;
-			this.player1.makeBet($currentBet);
+			this.player1.makeBet($currentBet + this.player1.currentBet);
 		} else if (this.player1.currentBet === this.player2.currentBet) {
 			// NEED TO CHANGE TO THE HOLD CARD PHASE
 		}
 		this.pot = this.player1.currentBet + this.player2.currentBet;
 		this.updateStats();
 		this.changeTurn();
+		this.becomeDrawRound();
 	},
 	makeFold () {
 		if (this.whosTurn === 1) {
@@ -133,6 +154,16 @@ const game= {
 		this.updateStats();
 		this.changeTurn();
 	},
+	becomeDrawRound () {
+		$('.actions').css('visibility', 'hidden');
+		$('#call').css('visibility', 'visible');
+		$('#call').text('Draw');
+		this.bettingRound = false;
+		this.drawingRound = true;
+	},
+	drawCards () {
+
+	},
 	updateStats () {
 		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
 		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
@@ -146,8 +177,6 @@ const game= {
 		}
 	}
 }
-
-
 
 // Contains the current cards in play
 // Contain the remaining cards
@@ -205,7 +234,7 @@ $('#bet-submit').on('click', (e) => {
 
 $('#call').on('click', (e) => {
 	e.preventDefault();
-	game.makeCall();
+	game.callOrDraw();
 });
 
 $('#fold').on('click', (e) => {
