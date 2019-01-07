@@ -62,12 +62,13 @@ const game= {
 			this.whosTurn = 1;
 		}
 	},
-	makeBet (amount) {
+	makeBet () {
+		let $betAmount = $('#bet-amount').val();
 		$('#call').text(`Call ${Math.abs(this.player1.currentBet - this.player2.currentBet)}`);
 		if (this.whosTurn === 1) {
-			this.player1.makeBet(amount);
+			this.player1.makeBet($betAmount);
 		} else if (this.whosTurn === 2) {
-			this.player2.makeBet(amount);
+			this.player2.makeBet($betAmount);
 		}
 		this.pot = this.player1.currentBet + this.player2.currentBet;
 		this.updateStats();
@@ -134,11 +135,13 @@ $('#player-inputs').on('submit', (e) => {
 $('#bet-amount').on('keypress', (e) => {
 	if(e.which === 13) {
 		e.preventDefault();
+		game.makeBet();
 	}
 });
 
 $('#bet').on('submit', (e) => {
 	e.preventDefault();
+	game.makeBet();
 });
 
 $('img').on('click', (e) => {
