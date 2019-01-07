@@ -67,6 +67,8 @@ const game = {
 		$("#player1-stats").append(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
 		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
 		this.whosTurn = 1;
+		this.dealCards();
+		this.showPlayer1()
 	},
 	checkHandValue () {
 // COMPARE THE VALUE OF THE PLAYERS' HANDS
@@ -92,10 +94,12 @@ const game = {
 			this.whosTurn = 2;
 			$('#player1').css('color', 'white');
 			$('#player2').css('color', 'red');
+			this.showPlayer2()
 		} else if (this.whosTurn === 2) {
 			this.whosTurn = 1;
 			$('#player2').css('color', 'white');
 			$('#player1').css('color', 'red');
+			this.showPlayer1()
 		}
 	},
 	makeBet () {
@@ -192,7 +196,12 @@ const game = {
 	},
 	showPlayer1 () {
 		for (let i = 1; i <= 5; i++) {
-			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i-1].image);
+			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+		}
+	},
+	showPlayer2 () {
+		for (let i = 1; i <= 5; i++) {
+			$(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
 		}
 	}
 }
