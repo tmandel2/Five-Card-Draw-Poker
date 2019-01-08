@@ -34,16 +34,59 @@ class Player {
 	loseHand (amount) {
 		this.wallet = this.wallet - amount;
 	}
+	compareValues (num1, num2) {
+		return num1 - num2;
+	}
 	handValue () {
+		let cardValues = [];
+		let cardAltValues = [];
+		let cardSuits = [];
 		for (let i = 0; i <= this.currentCards.length - 1; i++) {
 			// LOTS of nested for loops. Need to run through the 
-		}
+			cardValues[i] = this.currentCards[i].value;
+			cardSuits[i] = this.currentCards[i].suit;
+			cardAltValues[i] = this.currentCards[i].altValue;
+		};
+		cardValues.sort(this.compareValues);
+		cardAltValues.sort(this.compareValues);
+		this.checkFlush(cardSuits);
+		this.checkStraight(cardValues);
+		this.checkStraight(cardAltValues);
+		console.log(this.checkFlush(cardSuits));
+		console.log(this.checkStraight(cardValues));
+		console.log(this.checkStraight(cardAltValues));
 		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
 
 		// Straight flush: check flush, if flush, check for straight
 		// full house: check 3 of a kind, then check pair
+	}
+	checkFlush (suitArray) {
+		let suitCheck = 0;
+		for (let i = 1; i <= suitArray.length - 1; i++) {
+			if (suitArray[0] === suitArray[i]) {
+				suitCheck++;
+			}
+		}
+		if (suitCheck === suitArray.length - 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	checkStraight (cardValue) {
+		let straightCheck = 0;
+		for (let i = 0; i <= cardValue.length - 2; i++) {
+			if (cardValue[i] === cardValue[i + 1] - 1) {
+				straightCheck++;
+			}
+		}
+		if (straightCheck === cardValue.length - 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
