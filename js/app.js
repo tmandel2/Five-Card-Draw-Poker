@@ -49,28 +49,35 @@ class Player {
 		};
 		cardValues.sort(this.compareValues);
 		cardAltValues.sort(this.compareValues);
-		this.checkFlush(cardSuits);
-		this.checkStraight(cardValues);
-		this.checkStraight(cardAltValues);
-		this.checkStraightFlush(cardValues, cardAltValues, cardSuits);
-		this.checkFourOfAKind(cardValues);
-		this.checkThreeOfAKind(cardValues);
-		this.checkTwoPair(cardValues);
-		this.checkPair(cardValues);
-		console.log(this.checkFlush(cardSuits));
-		console.log(this.checkStraight(cardValues));
-		console.log(this.checkStraight(cardAltValues));
-		console.log(this.checkStraightFlush(cardValues, cardAltValues, cardSuits));
-		console.log(this.checkFourOfAKind(cardValues));
-		console.log(this.checkThreeOfAKind(cardValues));
-		console.log(this.checkTwoPair(cardValues));
-		console.log(this.checkPair(cardValues));
-		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
+		if (this.checkStraightFlush(cardValues, cardAltValues, cardSuits)) {
+			console.log('Straight Flush');
+			return 8;
+		} else if (this.checkFourOfAKind(cardValues)) {
+			console.log('Four of a Kind');
+			return 7;
+		} else if (this.checkFullHouse(cardValues)) {
+			console.log('Full House');
+			return 6;
+		} else if (this.checkFlush(cardSuits)) {
+			console.log('Flush');
+			return 5;
+		} else if (this.checkStraight(cardValues) || this.checkStraight(cardAltValues)) {
+			console.log('Straight');
+			return 4;
+		} else if (this.checkThreeOfAKind(cardValues)) {
+			console.log('Three of a kind');
+			return 3;
+		} else if (this.checkTwoPair(cardValues)) {
+			console.log('Two Pair');
+			return 2;
+		} else if (this.checkPair(cardValues)) {
+			console.log('Pair');
+			return 1;
+		} else {
+			console.log('Nothing');
+		}
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
-
-		// Straight flush: check flush, if flush, check for straight
-		// full house: check 3 of a kind, then check pair
 	}
 	checkFlush (suitArray) {
 		let suitCheck = 0;
@@ -106,6 +113,22 @@ class Player {
 		} else {
 			return false;
 		}
+	}
+	checkFullHouse (cardValueArray) {
+		let checkingArray = [];
+		let isThereOne = false;
+		for (let i = 0; i <= cardValueArray.length - 1; i++) {
+			checkingArray.push(cardValueArray[i]);
+		}
+		for (let i = 2; i <= checkingArray.length - 1; i++) {
+			if (checkingArray[i] === checkingArray[i - 1] && checkingArray[i] === checkingArray[i - 2]) {
+				checkingArray.splice(i - 2, 3);
+			}
+		}
+		if (checkingArray.length === 2 && checkingArray[0] === checkingArray[1]) {
+			isThereOne = true;
+		}
+		return isThereOne;
 	}
 	checkFourOfAKind (cardValueArray) {
 		let isThereOne = false;
@@ -181,12 +204,17 @@ const game = {
 		this.dealCards();
 	},
 	checkHandValue () {
-// COMPARE THE VALUE OF THE PLAYERS' HANDS
-// If the values are the same, need to see which of highest used card
-// 
+		if (this.player1.handValue() > this.player2.handValue()) {
+			this.player1.winHand(this.player1.currentBet);
+			this.player2.loseHand(this.player2.currentBet);
+		}
+		if (this.player2.handValue() > this.player1.handValue()) {
+			this.player2.winHand(this.player2.currentBet);
+			this.player1.loseHand(this.player1.currentBet);
+		}
+		this.endHand();
 	},
 	dealCards () {
-// NEEDS TO GIVE CARDS TO THE PLAYER
 		this.player1.hasDrawn = false;
 		this.player1.hasDrawn = false;
 		for (let i = 0; i <= 4; i++) {
@@ -200,29 +228,23 @@ const game = {
 			this.cardsInPlay.push(randomPlayer2);
 		}
 		if (this.handNumber % 2 === 0) {
+			this.whosTurn = 2;
 			this.showPlayer2();
 		} else {
+			this.whosTurn = 1;
 			this.showPlayer1();
 		}
 		this.bettingRound2 = false;
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
 		this.updateStats();
-// Will remove a random collection of 5 cards from the deck array, and push to player1 currentcards array.
-// Do the same for player 2.
-// Remove those cards from the deck.
 	},
 	changeTurn () {
-		// const $cardClass = `.${$(card).attr('class')}`;
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
-			$('#player1').css('color', 'white');
-			$('#player2').css('color', 'red');
 			this.showPlayer2()
 		} else if (this.whosTurn === 2) {
 			this.whosTurn = 1;
-			$('#player2').css('color', 'white');
-			$('#player1').css('color', 'red');
 			this.showPlayer1()
 		}
 	},
@@ -256,17 +278,17 @@ const game = {
 				let $currentBet = this.player1.currentBet - this.player2.currentBet;
 				this.player2.makeBet($currentBet + this.player2.currentBet);
 				if (this.bettingRound2 === true) {
-					this.endHand();
+					this.checkHandValue();
 				}
 			} else if (this.player1.currentBet < this.player2.currentBet) {
 				let $currentBet = this.player2.currentBet - this.player1.currentBet;
 				this.player1.makeBet($currentBet + this.player1.currentBet);
 				if (this.bettingRound2 === true) {
-					this.endHand();
+					this.checkHandValue();
 				}
 			} else if (this.player1.currentBet === this.player2.currentBet) {
 				if (this.player1.hasChecked && this.bettingRound2) {
-					this.endHand();
+					this.checkHandValue();
 					return;
 				} else if (this.player1.hasChecked) {
 					this.changeTurn();
@@ -292,14 +314,7 @@ const game = {
 			this.player1.winHand(this.player2.currentBet);
 			this.player2.loseHand(this.player2.currentBet);
 		}
-		this.replaceCardsInDeck();
-		this.pot = 0;
-		this.player2.handEnd();
-		this.player1.handEnd();
-		$('#call').text(`Check`);
-		this.updateStats();
-		this.handNumber++;
-		this.dealCards();
+		this.endHand();
 	},
 	allIn () {
 		if (this.whosTurn === 1) {
@@ -398,6 +413,8 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
+		$('#player2').css('color', 'white');
+		$('#player1').css('color', 'red');
 	},
 	showPlayer2 () {
 		for (let i = 1; i <= 5; i++) {
@@ -408,14 +425,18 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
+		$('#player1').css('color', 'white');
+		$('#player2').css('color', 'red');
 	},
 	endHand () {
-		this.player1.handEnd();
-		this.player2.handEnd();
 		this.replaceCardsInDeck();
+		this.pot = 0;
+		this.player2.handEnd();
+		this.player1.handEnd();
+		$('#call').text(`Check`);
+		this.updateStats();
 		this.handNumber++;
 		this.dealCards();
-
 	},
 	replaceCardsInDeck () {
 		for (let i = 0; i <= this.cardsInPlay.length -1 ; i++) {
