@@ -177,6 +177,23 @@ class Player {
 		}
 		return pairCheck;
 	}
+	makeTwoPairArray () {
+		let twoPairArray = [];
+		for (let i = 4; i >= 1; i--) {
+			if (cardValueArray[i] === cardValueArray[i - 1]) {
+				twoPairArray.unShift(cardValueArray[i]);
+				cardValueArray.splice(i, 1);
+			}
+		}
+		return twoPairArray;
+	}
+	cardValueTotal () {
+		let runningTotal = 0;
+		for (let i = 0; i <= this.cardValueArray.length - 1; i++) {
+			runningTotal = runningTotal + this.cardValueArray[i];
+		}
+		return runningTotal;
+	}
 	ifTie (handValue) {
 		if (handValue === 8) {
 			// need to compare the corresponding values of the specific places in the sortedCardValue
@@ -239,7 +256,7 @@ const game = {
 						return this.endHand();
 					}
 				}
-			} else if (this.player1.handValue() === 7) { //Four of a kind. The 4th card in the sort, is always a part of the 4 of a kind, so the tie breaker is the value of the 4 of a kind
+			} else if (this.player1.handValue() === 7) { //Four of a kind. The 4th card in the sort, is always a part of the 4 of a kind, so the tie breaker is the value of the 4 of a kind (any index of 1 through 3 would work here)
 				if (this.player1.sortedCardValues[3] > this.player2.sortedCardValues[3]) {
 					this.player1Wins();
 					return this.endHand();
@@ -252,6 +269,26 @@ const game = {
 					this.player1Wins();
 					return this.endHand();
 				} else if (this.player2.sortedCardValues[2] > this.player1.sortedCardValues[2]) {
+					this.player2Wins();
+					return this.endHand();
+				}
+			} else if (this.player1.handValue() === 2) {	//Two pairs. Compare the value of high pair, then low pair, then remaining card.
+				if (this.player1.makeTwoPairArray()[1] > this.player2.makeTwoPairArray()[1]) {
+					this.player1Wins();
+					return this.endHand();
+				} else if (this.player2.makeTwoPairArray()[1] > this.player1.makeTwoPairArray()[1]) {
+					this.player2Wins();
+					return this.endHand();
+				} else if (this.player1.makeTwoPairArray()[0] > this.player2.makeTwoPairArray()[0]) {
+					this.player1Wins();
+					return this.endHand();
+				} else if (this.player2.makeTwoPairArray()[0] > this.player1.makeTwoPairArray()[0]) {
+					this.player2Wins();
+					return this.endHand();
+				} else if (this.player1.cardValueTotal() > this.player2.cardValueTotal()) {
+					this.player1Wins();
+					return this.endHand();
+				} else if (this.player2.cardValueTotal() > this.player1.cardValueTotal()) {
 					this.player2Wins();
 					return this.endHand();
 				}
