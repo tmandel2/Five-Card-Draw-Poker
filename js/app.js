@@ -15,7 +15,7 @@ class Player {
 		this.wallet = 1500,
 		this.currentBet = 0,
 		this.currentCards = [],
-		this.currentHandValue = 0,
+		this.currentHandValue = [], //Will return a hand value in the form of something like [main hand, high card of used, high card of unused] Need to figure out how to do value of trips vs pair for full houses
 		this.usedCardsForHand = [],
 		this.hasDrawn = false,
 		this.hasChecked = false
@@ -35,6 +35,9 @@ class Player {
 		this.wallet = this.wallet - amount;
 	}
 	handValue () {
+		for (let i = 0; i <= this.currentCards.length - 1; i++) {
+			// LOTS of nested for loops. Need to run through the 
+		}
 		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
@@ -318,6 +321,11 @@ const game = {
 			deck.push(this.cardsInPlay[i]);
 		}
 		this.cardsInPlay = [];
+	},
+	showCardBacks () {
+		for (let i = 1; i <= 5; i++) {
+			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
+		}
 	}
 }
 
