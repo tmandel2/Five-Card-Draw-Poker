@@ -15,7 +15,9 @@ class Player {
 		this.currentBet = 0,
 		this.currentCards = [],
 		this.currentHandValue = 0,
-		this.usedCardsForHand = []
+		this.usedCardsForHand = [],
+		this.hasDrawn = false,
+		this.hasChecked = false
 	}
 	makeBet (amount) {
 		this.currentBet = amount;
@@ -54,6 +56,7 @@ const game = {
 	whosTurn: null,
 	bettingRound: true,
 	drawingRound: false,
+	bettingRound2: false,
 	handNumber: 1,
 	startGame () {
 		this.player1 = new Player($('#player1-name-input').val());
@@ -94,6 +97,9 @@ const game = {
 		} else {
 			this.showPlayer1();
 		}
+		this.bettingRound2 = false;
+		this.player1.hasChecked = false;
+		this.player2.hasChecked = false;
 // Will remove a random collection of 5 cards from the deck array, and push to player1 currentcards array.
 // Do the same for player 2.
 // Remove those cards from the deck.
@@ -132,26 +138,42 @@ const game = {
 	},
 	callOrDraw () {
 		if ($('#call').text() === 'Draw') {
-			console.log('draw');
 			this.drawCards();
 		} else {
 			this.makeCall();
 		}
 	},
 	makeCall () {
-		if (this.player1.currentBet > this.player2.currentBet) {
-			let $currentBet = this.player1.currentBet - this.player2.currentBet;
-			this.player2.makeBet($currentBet + this.player2.currentBet);
-		} else if (this.player1.currentBet < this.player2.currentBet) {
-			let $currentBet = this.player2.currentBet - this.player1.currentBet;
-			this.player1.makeBet($currentBet + this.player1.currentBet);
-		} else if (this.player1.currentBet === this.player2.currentBet) {
-			// NEED TO CHANGE TO THE HOLD CARD PHASE
-		}
-		this.pot = this.player1.currentBet + this.player2.currentBet;
-		this.updateStats();
-		this.changeTurn();
-		this.becomeDrawRound();
+			if (this.player1.currentBet > this.player2.currentBet) {
+				let $currentBet = this.player1.currentBet - this.player2.currentBet;
+				this.player2.makeBet($currentBet + this.player2.currentBet);
+				if (this.bettingRound2 === true) {
+					this.endHand();
+				}
+			} else if (this.player1.currentBet < this.player2.currentBet) {
+				let $currentBet = this.player2.currentBet - this.player1.currentBet;
+				this.player1.makeBet($currentBet + this.player1.currentBet);
+				if (this.bettingRound2 === true) {
+					this.endHand();
+				}
+			} else if (this.player1.currentBet === this.player2.currentBet) {
+				if (this.player1.hasChecked && this.bettingRound2) {
+					this.endHand();
+				} else if (this.player1.hasChecked) {
+					this.changeTurn();
+					this.becomeDrawRound();
+					return;
+				} else {
+					this.player1.hasChecked = true;
+					this.player2.hasChecked = true;
+					this.changeTurn();
+					return;
+				}
+			}
+			this.pot = this.player1.currentBet + this.player2.currentBet;
+			this.updateStats();
+			this.changeTurn();
+			this.becomeDrawRound();
 	},
 	makeFold () {
 		if (this.whosTurn === 1) {
@@ -186,8 +208,16 @@ const game = {
 		$('.actions').css('visibility', 'hidden');
 		$('#call').css('visibility', 'visible');
 		$('#call').text('Draw');
+		this.player1.hasChecked = false;
+		this.player2.hasChecked = false;
 		this.bettingRound = false;
 		this.drawingRound = true;
+	},
+	becomeBetRound () {
+		$('.actions').css('visibility', 'visible');
+		$('#call').text('Check');
+		this.drawingRound = false;
+		this.bettingRound2 = true;
 	},
 	drawCards () {
 		if (this.whosTurn === 1) {
@@ -198,7 +228,10 @@ const game = {
 					this.cardsInPlay.push(drawnCard);
 				}
 			}
+			this.player1.hasDrawn = true;
 			this.showPlayer1();
+			//INSERT DELAY
+			this.changeTurn();
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
@@ -207,7 +240,13 @@ const game = {
 					this.cardsInPlay.push(drawnCard);
 				}
 			}
+			this.player2.hasDrawn = true;
 			this.showPlayer2();
+			//INSERT DELAY
+			this.changeTurn();
+		}
+		if (this.player1.hasDrawn && this.player2.hasDrawn) {
+			this.becomeBetRound();
 		}
 
 	},
@@ -218,21 +257,23 @@ const game = {
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
 		const whichCard = parseInt($cardClass.substring(5), 10);
-		if (this.whosTurn === 1) {
-			if (this.player1.currentCards[whichCard - 1].held === false) {
-				this.player1.currentCards[whichCard - 1].held = true;
-				$($cardClass).css('color', 'red');
-			} else if (this.player1.currentCards[whichCard - 1]) {
-				this.player1.currentCards[whichCard - 1] = false;
-				$($cardClass).css('color', 'lightgray');
-			}
-		} else if (this.whosTurn === 2) {
-			if (this.player2.currentCards[whichCard - 1].held === false) {
-				this.player2.currentCards[whichCard - 1].held = true;
-				$($cardClass).css('color', 'red');
-			} else if (this.player2.currentCards[whichCard - 1]) {
-				this.player2.currentCards[whichCard - 1] = false;
-				$($cardClass).css('color', 'lightgray');
+		if (this.drawingRound === true) {
+			if (this.whosTurn === 1) {
+				if (this.player1.currentCards[whichCard - 1].held === false) {
+					this.player1.currentCards[whichCard - 1].held = true;
+					$($cardClass).css('color', 'red');
+				} else if (this.player1.currentCards[whichCard - 1]) {
+					this.player1.currentCards[whichCard - 1].held = false;
+					$($cardClass).css('color', 'lightgray');
+				}
+			} else if (this.whosTurn === 2) {
+				if (this.player2.currentCards[whichCard - 1].held === false) {
+					this.player2.currentCards[whichCard - 1].held = true;
+					$($cardClass).css('color', 'red');
+				} else if (this.player2.currentCards[whichCard - 1]) {
+					this.player2.currentCards[whichCard - 1].held = false;
+					$($cardClass).css('color', 'lightgray');
+				}
 			}
 		}
 	},
@@ -261,6 +302,12 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
+	},
+	endHand () {
+		this.replaceCardsInDeck();
+		this.handNumber++;
+		this.dealCards();
+
 	},
 	replaceCardsInDeck () {
 		for (let i = 0; i <= this.cardsInPlay.length -1 ; i++) {
