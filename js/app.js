@@ -326,14 +326,16 @@ const game = {
 		if (this.handNumber % 2 === 0) {
 			this.whosTurn = 2;
 			this.showCardBacks();
+			this.showPlayer2Info();
 			window.setTimeout(() => {
-				this.showPlayer2()
+				this.showPlayer2Cards()
 			}, 5000);
 		} else {
 			this.whosTurn = 1;
 			this.showCardBacks();
+			this.showPlayer1Info();
 			window.setTimeout(() => {
-				this.showPlayer1()
+				this.showPlayer1Cards()
 			}, 5000);
 		}
 		this.bettingRound2 = false;
@@ -345,14 +347,16 @@ const game = {
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
 			this.showCardBacks();
+			this.showPlayer2Info();
 			window.setTimeout(() => {
-				this.showPlayer2()
+				this.showPlayer2Cards()
 			}, 5000);
 		} else if (this.whosTurn === 2) {
 			this.whosTurn = 1;
 			this.showCardBacks();
+			this.showPlayer1Info();
 			window.setTimeout(() => {
-				this.showPlayer1()
+				this.showPlayer1Cards()
 			}, 5000);
 		}
 	},
@@ -469,8 +473,9 @@ const game = {
 			}
 			this.player1.hasDrawn = true;
 			this.showCardBacks();
+			this.showPlayer1Info();
 			window.setTimeout(() => {
-				this.showPlayer1()
+				this.showPlayer1Cards()
 			}, 5000);
 			//INSERT DELAY
 		} else {
@@ -483,8 +488,9 @@ const game = {
 			}
 			this.player2.hasDrawn = true;
 			this.showCardBacks();
+			this.showPlayer2Info();
 			window.setTimeout(() => {
-				this.showPlayer2()
+				this.showPlayer2Cards()
 			}, 5000);
 			//INSERT DELAY
 		}
@@ -526,9 +532,9 @@ const game = {
 		deck.splice(randomNumber, 1);
 		return dealtCard[0];
 	},
-	showPlayer1 () {
+	showPlayer1Info () {
 		for (let i = 1; i <= 5; i++) {
-			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+			// $(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
 			if (this.player1.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
 			} else if (this.player1.currentCards[i - 1].held === false) {
@@ -537,10 +543,22 @@ const game = {
 		}
 		$('#player2').css('color', 'white');
 		$('#player1').css('color', 'red');
+		$('#player1-stats').css('border', '1px dashed red');
+		$('#player2-stats').css('border', '');
 	},
-	showPlayer2 () {
+	showPlayer1Cards () {
+		for (let i = 1; i <= 5; i++) {
+			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+		}
+	},
+	showPlayer2Cards () {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
+		}
+	},
+	showPlayer2Info () {
+		for (let i = 1; i <= 5; i++) {
+			// $(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
 			if (this.player2.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
 			} else if (this.player2.currentCards[i - 1].held === false) {
@@ -549,15 +567,19 @@ const game = {
 		}
 		$('#player1').css('color', 'white');
 		$('#player2').css('color', 'red');
+		$('#player2-stats').css('border', '1px dashed red');
+		$('#player1-stats').css('border', '');
 	},
 	endHand () {
-		this.checkWin();
 		this.replaceCardsInDeck();
 		this.pot = 0;
 		this.player2.handEnd();
 		this.player1.handEnd();
 		$('#call').text(`Check`);
 		this.updateStats();
+		if(this.checkWin()) {
+			return;
+		}
 		this.handNumber++;
 		this.dealCards();
 	},
@@ -575,7 +597,16 @@ const game = {
 	},
 	checkWin() {
 		if (this.player1.wallet === 0) {
-
+			$('#player1').css('color', 'white');
+			$('#player2').css('color', 'red');
+			$('#player2-stats').css('border', '5px solid red');
+			return true;
+		}
+		if (this.player2.wallet === 0) {
+			$('#player2').css('color', 'white');
+			$('#player1').css('color', 'red');
+			$('#player1-stats').css('border', '5px solid red');
+			return true;
 		}
 	}
 }
