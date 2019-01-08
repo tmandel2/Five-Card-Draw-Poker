@@ -18,7 +18,9 @@ class Player {
 		this.currentHandValue = [], //Will return a hand value in the form of something like [main hand, high card of used, high card of unused] Need to figure out how to do value of trips vs pair for full houses
 		this.usedCardsForHand = [],
 		this.hasDrawn = false,
-		this.hasChecked = false
+		this.hasChecked = false,
+		this.sortedCardValues = [],
+		this.cardSuits = []
 	}
 	makeBet (amount) {
 		if (amount <= this.wallet && amount > 0) {
@@ -42,43 +44,44 @@ class Player {
 		return num1 - num2;
 	}
 	handValue () {
-		let cardValues = [];
+		this.sortedCardValues = [];
+		this.cardSuits = [];
 		let cardAltValues = [];
-		let cardSuits = [];
 		for (let i = 0; i <= this.currentCards.length - 1; i++) {
 			// LOTS of nested for loops. Need to run through the 
-			cardValues[i] = this.currentCards[i].value;
-			cardSuits[i] = this.currentCards[i].suit;
+			this.sortedCardValues[i] = this.currentCards[i].value;
+			this.cardSuits[i] = this.currentCards[i].suit;
 			cardAltValues[i] = this.currentCards[i].altValue;
 		};
-		cardValues.sort(this.compareValues);
+		this.sortedCardValues.sort(this.compareValues);
 		cardAltValues.sort(this.compareValues);
-		if (this.checkStraightFlush(cardValues, cardAltValues, cardSuits)) {
+		if (this.checkStraightFlush(this.sortedCardValues, cardAltValues, this.cardSuits)) {
 			console.log('Straight Flush');
 			return 8;
-		} else if (this.checkFourOfAKind(cardValues)) {
+		} else if (this.checkFourOfAKind(this.sortedCardValues)) {
 			console.log('Four of a Kind');
 			return 7;
-		} else if (this.checkFullHouse(cardValues)) {
+		} else if (this.checkFullHouse(this.sortedCardValues)) {
 			console.log('Full House');
 			return 6;
-		} else if (this.checkFlush(cardSuits)) {
+		} else if (this.checkFlush(this.cardSuits)) {
 			console.log('Flush');
 			return 5;
-		} else if (this.checkStraight(cardValues) || this.checkStraight(cardAltValues)) {
+		} else if (this.checkStraight(this.sortedCardValues) || this.checkStraight(cardAltValues)) {
 			console.log('Straight');
 			return 4;
-		} else if (this.checkThreeOfAKind(cardValues)) {
+		} else if (this.checkThreeOfAKind(this.sortedCardValues)) {
 			console.log('Three of a kind');
 			return 3;
-		} else if (this.checkTwoPair(cardValues)) {
+		} else if (this.checkTwoPair(this.sortedCardValues)) {
 			console.log('Two Pair');
 			return 2;
-		} else if (this.checkPair(cardValues)) {
+		} else if (this.checkPair(this.sortedCardValues)) {
 			console.log('Pair');
 			return 1;
 		} else {
 			console.log('Nothing');
+			return 0;
 		}
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
@@ -173,6 +176,9 @@ class Player {
 			}
 		}
 		return pairCheck;
+	}
+	ifTie (handValue) {
+
 	}
 }
 
@@ -300,12 +306,14 @@ const game = {
 				this.player2.makeBet($currentBet + this.player2.currentBet);
 				if (this.bettingRound2 === true) {
 					this.checkHandValue();
+					return;
 				}
 			} else if (this.player1.currentBet < this.player2.currentBet) {
 				let $currentBet = this.player2.currentBet - this.player1.currentBet;
 				this.player1.makeBet($currentBet + this.player1.currentBet);
 				if (this.bettingRound2 === true) {
 					this.checkHandValue();
+					return;
 				}
 			} else if (this.player1.currentBet === this.player2.currentBet) {
 				if (this.player1.hasChecked && this.bettingRound2) {
@@ -549,5 +557,6 @@ $('#all-in').on('click', (e) => {
 })
 
 $('img').on('click', (e) => {
+	e.preventDefault();
 	game.holdCard(e.target);
 });
