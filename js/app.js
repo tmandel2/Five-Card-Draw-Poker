@@ -55,12 +55,16 @@ class Player {
 		this.checkStraightFlush(cardValues, cardAltValues, cardSuits);
 		this.checkFourOfAKind(cardValues);
 		this.checkThreeOfAKind(cardValues);
+		this.checkTwoPair(cardValues);
+		this.checkPair(cardValues);
 		console.log(this.checkFlush(cardSuits));
 		console.log(this.checkStraight(cardValues));
 		console.log(this.checkStraight(cardAltValues));
 		console.log(this.checkStraightFlush(cardValues, cardAltValues, cardSuits));
 		console.log(this.checkFourOfAKind(cardValues));
 		console.log(this.checkThreeOfAKind(cardValues));
+		console.log(this.checkTwoPair(cardValues));
+		console.log(this.checkPair(cardValues));
 		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
@@ -120,6 +124,28 @@ class Player {
 			}
 		}
 		return isThereOne;
+	}
+	checkTwoPair (cardValueArray) {
+		let pairCheck = 0;
+		for (let i = 1; i <= cardValueArray.length - 1; i++) {
+			if (cardValueArray[i] === cardValueArray[i - 1]) {
+				pairCheck++;
+			}
+		}
+		if (pairCheck === 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	checkPair (cardValueArray) {
+		let pairCheck = false;
+		for (let i = 1; i <= cardValueArray.length - 1; i++) {
+			if (cardValueArray[i] === cardValueArray[i - 1]) {
+				pairCheck = true;
+			}
+		}
+		return pairCheck;
 	}
 }
 
