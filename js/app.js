@@ -9,8 +9,9 @@
 // They will have cards in their hands
 
 class Player {
-	constructor (playerName) {
+	constructor (playerName, playerNumber) {
 		this.name = playerName,
+		this.number = playerNumber,
 		this.wallet = 1500,
 		this.currentBet = 0,
 		this.currentCards = [],
@@ -54,13 +55,12 @@ const game = {
 	player1: null,
 	player2: null,
 	whosTurn: null,
-	bettingRound: true,
 	drawingRound: false,
 	bettingRound2: false,
 	handNumber: 1,
 	startGame () {
-		this.player1 = new Player($('#player1-name-input').val());
-		this.player2 = new Player($('#player2-name-input').val());
+		this.player1 = new Player($('#player1-name-input').val(), 1);
+		this.player2 = new Player($('#player2-name-input').val(), 2);
 		$('#player-inputs').remove();
 		$('#player-stats').css("visibility", "visible");
 		$('#player-names').css("visibility", "visible");
@@ -102,6 +102,7 @@ const game = {
 		this.bettingRound2 = false;
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
+		this.updateStats();
 // Will remove a random collection of 5 cards from the deck array, and push to player1 currentcards array.
 // Do the same for player 2.
 // Remove those cards from the deck.
@@ -213,7 +214,6 @@ const game = {
 		$('#call').text('Draw');
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
-		this.bettingRound = false;
 		this.drawingRound = true;
 	},
 	becomeBetRound () {
@@ -305,6 +305,8 @@ const game = {
 		}
 	},
 	endHand () {
+		this.player1.handEnd();
+		this.player2.handEnd();
 		this.replaceCardsInDeck();
 		this.handNumber++;
 		this.dealCards();
