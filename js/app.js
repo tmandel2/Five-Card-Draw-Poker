@@ -52,9 +52,15 @@ class Player {
 		this.checkFlush(cardSuits);
 		this.checkStraight(cardValues);
 		this.checkStraight(cardAltValues);
+		this.checkStraightFlush(cardValues, cardAltValues, cardSuits);
+		this.checkFourOfAKind(cardValues);
+		this.checkThreeOfAKind(cardValues);
 		console.log(this.checkFlush(cardSuits));
 		console.log(this.checkStraight(cardValues));
 		console.log(this.checkStraight(cardAltValues));
+		console.log(this.checkStraightFlush(cardValues, cardAltValues, cardSuits));
+		console.log(this.checkFourOfAKind(cardValues));
+		console.log(this.checkThreeOfAKind(cardValues));
 		// ASSIGN A VALUE OF 8 for straight flush, 7 for 4 of a kind, 6 full house, 5 flush, 4 straight, 3 three of a kind, 2 two pair, 1 pair, 0 high card.
 		// Need to capture card value of cards used, and return high to low.
 		// Then need to return high to low of rest of cards
@@ -75,18 +81,45 @@ class Player {
 			return false;
 		}
 	}
-	checkStraight (cardValue) {
+	checkStraight (cardValueArray) {
 		let straightCheck = 0;
-		for (let i = 0; i <= cardValue.length - 2; i++) {
-			if (cardValue[i] === cardValue[i + 1] - 1) {
+		for (let i = 0; i <= cardValueArray.length - 2; i++) {
+			if (cardValueArray[i] === cardValueArray[i + 1] - 1) {
 				straightCheck++;
 			}
 		}
-		if (straightCheck === cardValue.length - 1) {
+		if (straightCheck === cardValueArray.length - 1) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	checkStraightFlush (cardValueArray, cardAltValueArray, suitArray) {
+		if (this.checkFlush(suitArray) && this.checkStraight(cardValueArray)) {
+			return true;
+		} else if (this.checkFlush(suitArray) && this.checkStraight(cardAltValueArray)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	checkFourOfAKind (cardValueArray) {
+		let isThereOne = false;
+		for (let i = 3; i <= cardValueArray.length - 1; i++) {
+			if (cardValueArray[i] === cardValueArray[i - 1] && cardValueArray[i] === cardValueArray[i - 2] && cardValueArray[i] === cardValueArray[i - 3]) {
+				isThereOne = true;
+			}
+		}
+		return isThereOne;
+	}
+	checkThreeOfAKind (cardValueArray) {
+		let isThereOne = false;
+		for (let i = 2; i <= cardValueArray.length - 1; i++) {
+			if (cardValueArray[i] === cardValueArray[i - 1] && cardValueArray[i] === cardValueArray[i - 2]) {
+				isThereOne = true;
+			}
+		}
+		return isThereOne;
 	}
 }
 
