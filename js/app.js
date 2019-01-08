@@ -178,7 +178,9 @@ class Player {
 		return pairCheck;
 	}
 	ifTie (handValue) {
-
+		if (handValue === 8) {
+			// need to compare the corresponding values of the specific places in the sortedCardValue
+		}
 	}
 }
 
@@ -213,13 +215,31 @@ const game = {
 		this.whosTurn = 1;
 		this.dealCards();
 	},
+	player1Wins () {
+		this.player1.winHand(this.player1.currentBet);
+		this.player2.loseHand(this.player2.currentBet);
+	},
+	player2Wins () {
+		this.player2.winHand(this.player2.currentBet);
+		this.player1.loseHand(this.player1.currentBet);
+	},
 	checkHandValue () {
 		if (this.player1.handValue() > this.player2.handValue()) {
-			this.player1.winHand(this.player1.currentBet);
-			this.player2.loseHand(this.player2.currentBet);
+			this.player1Wins();
 		} else if (this.player2.handValue() > this.player1.handValue()) {
-			this.player2.winHand(this.player2.currentBet);
-			this.player1.loseHand(this.player1.currentBet);
+			this.player2Wins();
+		} else if (this.player1.handValue() === this.player2.handValue()) {
+			if (this.player1.handValue() === 8 || this.player1.handValue() === 5 || this.player1.handValue() === 4 || this.player1.handValue() === 0) {  //Straight Flushes, flushes, straights, no hand all have a tie breaker of high card, then second high card, then third high card, etc.
+				for (let i = 4; i >= 0; i--) {
+					if (this.player1.sortedCardValues[i] > this.player2.sortedCardValues[i]) {
+						this.player1Wins();
+						return this.endHand();
+					} else if (this.player2.sortedCardValues[i] > this.player1.sortedCardValues[i]) {
+						this.player2Wins();
+						return this.endHand();
+					}
+				}
+			}
 		}
 		this.endHand();
 	},
