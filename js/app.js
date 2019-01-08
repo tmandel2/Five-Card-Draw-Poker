@@ -21,8 +21,12 @@ class Player {
 		this.hasChecked = false
 	}
 	makeBet (amount) {
-		this.currentBet = amount;
-		return this.currentBet
+		if (amount <= this.wallet && amount > 0) {
+			this.currentBet = amount;
+			return this.currentBet
+		} else {
+			return false;
+		}
 	}
 	handEnd () {
 		this.currentBet = 0;
@@ -252,8 +256,14 @@ const game = {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
 		if (this.whosTurn === 1) {
 			this.player1.makeBet(this.player2.currentBet + $betAmount);
+			if (this.player1.makeBet(this.player2.currentBet + $betAmount) === false) {
+				return;
+			}
 		} else if (this.whosTurn === 2) {
 			this.player2.makeBet(this.player1.currentBet + $betAmount);
+			if (this.player2.makeBet(this.player1.currentBet + $betAmount) === false) {
+				return;
+			}
 		}
 		if (this.player1.currentBet - this.player2.currentBet > 0) {
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
