@@ -15,7 +15,6 @@ class Player {
 		this.wallet = 1500,
 		this.currentBet = 0,
 		this.currentCards = [],
-		this.currentHandValue = [], //Will return a hand value in the form of something like [main hand, high card of used, high card of unused] Need to figure out how to do value of trips vs pair for full houses
 		this.hasDrawn = false,
 		this.hasChecked = false,
 		this.sortedCardValues = [],
@@ -234,8 +233,12 @@ const game = {
 		$('#player1').text(`${this.player1.name}`);
 		$('#player2').text(`${this.player2.name}`);
 		$('#player1').css('color', 'red');
-		$("#player1-stats").html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
-		$("#player2-stats").html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		$("#player1-stats").append(`<p id='P1-wallet'>Wallet: ${this.player1.wallet}</p>`);
+		$("#player1-stats").append(`<p id='P1-bet'>Current Bet: ${this.player1.currentBet}</p>`);
+		$("#player1-stats").append(`<p id='P1-hand'>Last Hand: ${this.player1.lastHand}</p>`);
+		$("#player2-stats").append(`<p id='P2-wallet'>Wallet: ${this.player2.wallet}</p>`);
+		$("#player2-stats").append(`<p id='P2-bet'>Current Bet: ${this.player2.currentBet}</p>`);
+		$("#player2-stats").append(`<p id='P2-hand'>Last Hand: ${this.player2.lastHand}</p>`);
 		this.whosTurn = 1;
 		this.dealCards();
 	},
@@ -314,7 +317,7 @@ const game = {
 		this.player1.hasDrawn = false;
 		this.player1.hasDrawn = false;
 		for (let i = 0; i <= 4; i++) {
-			let randomPlayer1 = this.randomCard();		//Random cards dealt, but not removed from DECK yet
+			let randomPlayer1 = this.randomCard();
 			let randomPlayer2 = this.randomCard();
 			this.player1.currentCards[i] = randomPlayer1;
 			this.player2.currentCards[i] = randomPlayer2;
@@ -438,10 +441,10 @@ const game = {
 	},
 	allIn () {
 		if (this.whosTurn === 1) {
-			this.player1.makeBet(this.player1.wallet);
+			this.player1.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
 		} else {
-			this.player2.makeBet(this.player2.wallet);
+			this.player2.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
 		}
 		this.pot = this.player1.currentBet + this.player2.currentBet;
@@ -500,8 +503,12 @@ const game = {
 		this.changeTurn();
 	},
 	updateStats () {
-		$('#player1-stats').html(`<p>Wallet: ${this.player1.wallet - this.player1.currentBet}</br>Current Bet: ${this.player1.currentBet}</br>Last Hand: ${this.player1.lastHand}</p>`);
-		$('#player2-stats').html(`<p>Wallet: ${this.player2.wallet -this.player2.currentBet}</br>Current Bet: ${this.player2.currentBet}</br>Last Hand: ${this.player2.lastHand}</p>`);
+		$('#P1-wallet').text(`Wallet: ${this.player1.wallet - this.player1.currentBet}`);
+		$('#P1-bet').text(`Current Bet: ${this.player1.currentBet}`);
+		$('#P1-hand').text(`Last Hand: ${this.player1.lastHand}`);
+		$('#P2-wallet').text(`Wallet: ${this.player2.wallet - this.player2.currentBet}`);
+		$('#P2-bet').text(`Current Bet: ${this.player2.currentBet}`);
+		$('#P2-hand').text(`Last Hand: ${this.player2.lastHand}`);
 	},
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
@@ -611,37 +618,8 @@ const game = {
 	}
 }
 
-// Contains the current cards in play
-// Contain the remaining cards
-// Contains the pot
-// Has the method for checking the value of a hand:
-// Straight Flush
-// 4 of a kind
-// full house
-// Flush
-// Straight
-// three of a kind
-// 2 pair
-// pair
-// high card
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Listeners:
-// need to listen for buttons of betting, drawing, folding
-// need to listen for name
+
 $('.name-input').on('keypress', (e) => {
 	if(e.which === 13) {
 		e.preventDefault();
