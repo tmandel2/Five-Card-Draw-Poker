@@ -211,8 +211,7 @@ const game = {
 		if (this.player1.handValue() > this.player2.handValue()) {
 			this.player1.winHand(this.player1.currentBet);
 			this.player2.loseHand(this.player2.currentBet);
-		}
-		if (this.player2.handValue() > this.player1.handValue()) {
+		} else if (this.player2.handValue() > this.player1.handValue()) {
 			this.player2.winHand(this.player2.currentBet);
 			this.player1.loseHand(this.player1.currentBet);
 		}
@@ -233,10 +232,16 @@ const game = {
 		}
 		if (this.handNumber % 2 === 0) {
 			this.whosTurn = 2;
-			this.showPlayer2();
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer2()
+			}, 5000);
 		} else {
 			this.whosTurn = 1;
-			this.showPlayer1();
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer1()
+			}, 5000);
 		}
 		this.bettingRound2 = false;
 		this.player1.hasChecked = false;
@@ -246,10 +251,16 @@ const game = {
 	changeTurn () {
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
-			this.showPlayer2()
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer2()
+			}, 5000);
 		} else if (this.whosTurn === 2) {
 			this.whosTurn = 1;
-			this.showPlayer1()
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer1()
+			}, 5000);
 		}
 	},
 	makeBet () {
@@ -362,7 +373,10 @@ const game = {
 				}
 			}
 			this.player1.hasDrawn = true;
-			this.showPlayer1();
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer1()
+			}, 5000);
 			//INSERT DELAY
 		} else {
 			for (let i = 0; i <= 4; i++) {
@@ -373,7 +387,10 @@ const game = {
 				}
 			}
 			this.player2.hasDrawn = true;
-			this.showPlayer2();
+			this.showCardBacks();
+			window.setTimeout(() => {
+				this.showPlayer2()
+			}, 5000);
 			//INSERT DELAY
 		}
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
