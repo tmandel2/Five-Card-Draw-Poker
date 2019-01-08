@@ -82,6 +82,8 @@ const game = {
 	},
 	dealCards () {
 // NEEDS TO GIVE CARDS TO THE PLAYER
+		this.player1.hasDrawn = false;
+		this.player1.hasDrawn = false;
 		for (let i = 0; i <= 4; i++) {
 			let randomPlayer1 = this.randomCard();		//Random cards dealt, but not removed from DECK yet
 			let randomPlayer2 = this.randomCard();
@@ -159,6 +161,7 @@ const game = {
 			} else if (this.player1.currentBet === this.player2.currentBet) {
 				if (this.player1.hasChecked && this.bettingRound2) {
 					this.endHand();
+					return;
 				} else if (this.player1.hasChecked) {
 					this.changeTurn();
 					this.becomeDrawRound();
@@ -231,7 +234,6 @@ const game = {
 			this.player1.hasDrawn = true;
 			this.showPlayer1();
 			//INSERT DELAY
-			this.changeTurn();
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
@@ -243,12 +245,11 @@ const game = {
 			this.player2.hasDrawn = true;
 			this.showPlayer2();
 			//INSERT DELAY
-			this.changeTurn();
 		}
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
 			this.becomeBetRound();
 		}
-
+		this.changeTurn();
 	},
 	updateStats () {
 		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet - this.player1.currentBet}</br>Current Bet: ${this.player1.currentBet}</p>`);
@@ -311,6 +312,7 @@ const game = {
 	},
 	replaceCardsInDeck () {
 		for (let i = 0; i <= this.cardsInPlay.length -1 ; i++) {
+			this.cardsInPlay[i].held = false;
 			deck.push(this.cardsInPlay[i]);
 		}
 		this.cardsInPlay = [];
