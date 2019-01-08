@@ -47,7 +47,6 @@ class Player {
 		this.cardSuits = [];
 		let cardAltValues = [];
 		for (let i = 0; i <= this.currentCards.length - 1; i++) {
-			// LOTS of nested for loops. Need to run through the 
 			this.sortedCardValues[i] = this.currentCards[i].value;
 			this.cardSuits[i] = this.currentCards[i].suit;
 			cardAltValues[i] = this.currentCards[i].altValue;
@@ -82,8 +81,6 @@ class Player {
 			this.lastHand = 'High Card';
 			return 0;
 		}
-		// Need to capture card value of cards used, and return high to low.
-		// Then need to return high to low of rest of cards
 	}
 	checkFlush (suitArray) {
 		let suitCheck = 0;
@@ -194,7 +191,7 @@ class Player {
 		return runningTotal;
 	}
 	makeOnePairArray () {
-		let onePairArray = []; //Will display cards as such [pairCardValue, high, med, low]
+		let onePairArray = []; //Will display cards as [pairCardValue, high, med, low]
 		for (let i = 4; i >= 0; i--) {
 			if (this.sortedCardValues[i] === this.sortedCardValues[i - 1]) {
 				onePairArray.unshift(this.sortedCardValues[i]);
@@ -480,7 +477,6 @@ const game = {
 			window.setTimeout(() => {
 				this.showPlayer1Cards()
 			}, 5000);
-			//INSERT DELAY
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
@@ -495,7 +491,6 @@ const game = {
 			window.setTimeout(() => {
 				this.showPlayer2Cards()
 			}, 5000);
-			//INSERT DELAY
 		}
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
 			this.becomeBetRound();
@@ -541,7 +536,6 @@ const game = {
 	},
 	showPlayer1Info () {
 		for (let i = 1; i <= 5; i++) {
-			// $(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
 			if (this.player1.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
 			} else if (this.player1.currentCards[i - 1].held === false) {
@@ -565,7 +559,6 @@ const game = {
 	},
 	showPlayer2Info () {
 		for (let i = 1; i <= 5; i++) {
-			// $(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
 			if (this.player2.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
 			} else if (this.player2.currentCards[i - 1].held === false) {
@@ -639,26 +632,21 @@ $('#bet-amount').on('keypress', (e) => {
 });
 
 $('#bet-submit').on('click', (e) => {
-	e.preventDefault();
 	game.makeBet();
 });
 
 $('#call').on('click', (e) => {
-	e.preventDefault();
 	game.callOrDraw();
 });
 
 $('#fold').on('click', (e) => {
-	e.preventDefault();
 	game.makeFold();
 });
 
 $('#all-in').on('click', (e) => {
-	e.preventDefault();
 	game.allIn();
 })
 
 $('img').on('click', (e) => {
-	e.preventDefault();
 	game.holdCard(e.target);
 });

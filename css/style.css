@@ -139,4 +139,9 @@ form {
 button {
 	border-radius: 15px;
 	border: 1px black solid;
+	font-size: 20px;
+}
+
+#bet-amount {
+	font-size: 14px;
 }
