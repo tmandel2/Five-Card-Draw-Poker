@@ -228,7 +228,7 @@ const game = {
 			this.player1Wins();
 		} else if (this.player2.handValue() > this.player1.handValue()) {
 			this.player2Wins();
-		} else if (this.player1.handValue() === this.player2.handValue()) {
+		} else if (this.player1.handValue() === this.player2.handValue()) { //TIEBREAKER SCENARIOS
 			if (this.player1.handValue() === 8 || this.player1.handValue() === 5 || this.player1.handValue() === 4 || this.player1.handValue() === 0) {  //Straight Flushes, flushes, straights, no hand all have a tie breaker of high card, then second high card, then third high card, etc.
 				for (let i = 4; i >= 0; i--) {
 					if (this.player1.sortedCardValues[i] > this.player2.sortedCardValues[i]) {
@@ -238,6 +238,22 @@ const game = {
 						this.player2Wins();
 						return this.endHand();
 					}
+				}
+			} else if (this.player1.handValue() === 7) { //Four of a kind. The 4th card in the sort, is always a part of the 4 of a kind, so the tie breaker is the value of the 4 of a kind
+				if (this.player1.sortedCardValues[3] > this.player2.sortedCardValues[3]) {
+					this.player1Wins();
+					return this.endHand();
+				} else if (this.player2.sortedCardValues[3] > this.player1.sortedCardValues[3]) {
+					this.player2Wins();
+					return this.endHand();
+				}
+			} else if (this.player1.handValue() === 6 || this.player1.handValue() === 3) { //Full House and 3 of a kind. The third card in the sorted values will ALWAYS be a part of the 3 of a kind. This is the tie breaker for the two types of hands.
+				if (this.player1.sortedCardValues[2] > this.player2.sortedCardValues[2]) {
+					this.player1Wins();
+					return this.endHand();
+				} else if (this.player2.sortedCardValues[2] > this.player1.sortedCardValues[2]) {
+					this.player2Wins();
+					return this.endHand();
 				}
 			}
 		}
