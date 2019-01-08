@@ -79,6 +79,10 @@ form {
 	text-align: center;
 }
 
+#player1-stats p, #player2-stats p {
+	margin: 0;
+}
+
 #play-area {
 	height: 50%;
 	width: 100%;

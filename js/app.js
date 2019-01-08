@@ -16,11 +16,11 @@ class Player {
 		this.currentBet = 0,
 		this.currentCards = [],
 		this.currentHandValue = [], //Will return a hand value in the form of something like [main hand, high card of used, high card of unused] Need to figure out how to do value of trips vs pair for full houses
-		this.usedCardsForHand = [],
 		this.hasDrawn = false,
 		this.hasChecked = false,
 		this.sortedCardValues = [],
-		this.cardSuits = []
+		this.cardSuits = [],
+		this.lastHand = ''
 	}
 	makeBet (amount) {
 		if (amount <= this.wallet && amount > 0) {
@@ -56,31 +56,31 @@ class Player {
 		this.sortedCardValues.sort(this.compareValues);
 		cardAltValues.sort(this.compareValues);
 		if (this.checkStraightFlush(this.sortedCardValues, cardAltValues, this.cardSuits)) {
-			console.log('Straight Flush');
+			this.lastHand = 'Straight Flush';
 			return 8;
 		} else if (this.checkFourOfAKind(this.sortedCardValues)) {
-			console.log('Four of a Kind');
+			this.lastHand = 'Four of a Kind';
 			return 7;
 		} else if (this.checkFullHouse(this.sortedCardValues)) {
-			console.log('Full House');
+			this.lastHand = 'Full House';
 			return 6;
 		} else if (this.checkFlush(this.cardSuits)) {
-			console.log('Flush');
+			this.lastHand = 'Flush';
 			return 5;
 		} else if (this.checkStraight(this.sortedCardValues) || this.checkStraight(cardAltValues)) {
-			console.log('Straight');
+			this.lastHand = 'Straight';
 			return 4;
 		} else if (this.checkThreeOfAKind(this.sortedCardValues)) {
-			console.log('Three of a kind');
+			this.lastHand = 'Three of a kind';
 			return 3;
 		} else if (this.checkTwoPair(this.sortedCardValues)) {
-			console.log('Two Pair');
+			this.lastHand = 'Two Pair';
 			return 2;
 		} else if (this.checkPair(this.sortedCardValues)) {
-			console.log('Pair');
+			this.lastHand = 'Pair';
 			return 1;
 		} else {
-			console.log('Nothing');
+			this.lastHand = 'High Card';
 			return 0;
 		}
 		// Need to capture card value of cards used, and return high to low.
@@ -234,8 +234,8 @@ const game = {
 		$('#player1').text(`${this.player1.name}`);
 		$('#player2').text(`${this.player2.name}`);
 		$('#player1').css('color', 'red');
-		$("#player1-stats").append(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
-		$("#player2-stats").append(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		$("#player1-stats").html(`<p>Wallet: ${this.player1.wallet}</br>Current Bet: ${this.player1.currentBet}</p>`);
+		$("#player2-stats").html(`<p>Wallet: ${this.player2.wallet}</br>Current Bet: ${this.player2.currentBet}</p>`);
 		this.whosTurn = 1;
 		this.dealCards();
 	},
@@ -294,6 +294,7 @@ const game = {
 				} else if (this.player2.cardValueTotal() > this.player1.cardValueTotal()) {
 					this.player2Wins();
 					return this.endHand();
+					}
 				}
 			} else if (this.player1.handValue() === 1) { //One Pair. Made an array. Check which cards are worth more in pair, then high cards on through.
 				for (let i = 0; i <= 4; i++) {
@@ -493,8 +494,8 @@ const game = {
 		this.changeTurn();
 	},
 	updateStats () {
-		$('#player1-stats p').html(`<p>Wallet: ${this.player1.wallet - this.player1.currentBet}</br>Current Bet: ${this.player1.currentBet}</p>`);
-		$('#player2-stats p').html(`<p>Wallet: ${this.player2.wallet -this.player2.currentBet}</br>Current Bet: ${this.player2.currentBet}</p>`);
+		$('#player1-stats').html(`<p>Wallet: ${this.player1.wallet - this.player1.currentBet}</br>Current Bet: ${this.player1.currentBet}</br>Last Hand: ${this.player1.lastHand}</p>`);
+		$('#player2-stats').html(`<p>Wallet: ${this.player2.wallet -this.player2.currentBet}</br>Current Bet: ${this.player2.currentBet}</br>Last Hand: ${this.player2.lastHand}</p>`);
 	},
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
@@ -550,6 +551,7 @@ const game = {
 		$('#player2').css('color', 'red');
 	},
 	endHand () {
+		this.checkWin();
 		this.replaceCardsInDeck();
 		this.pot = 0;
 		this.player2.handEnd();
@@ -569,6 +571,11 @@ const game = {
 	showCardBacks () {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
+		}
+	},
+	checkWin() {
+		if (this.player1.wallet === 0) {
+
 		}
 	}
 }
