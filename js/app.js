@@ -224,7 +224,6 @@ const game = {
 		$('#player-inputs').remove();
 		$('#player-stats').css("visibility", "visible");
 		$('#player-names').css("visibility", "visible");
-		$("#button-bar").css("visibility", "visible");
 		$('#hold-row').css("visibility", "visible");
 		$('#card-location').css("visibility", "visible");
 		$('#player1').text(`${this.player1.name}`);
@@ -325,14 +324,12 @@ const game = {
 		}
 		if (this.handNumber % 2 === 0) {
 			this.whosTurn = 2;
-			this.showCardBacks();
 			this.showPlayer2Info();
 			window.setTimeout(() => {
 				this.showPlayer2Cards()
 			}, 5000);
 		} else {
 			this.whosTurn = 1;
-			this.showCardBacks();
 			this.showPlayer1Info();
 			window.setTimeout(() => {
 				this.showPlayer1Cards()
@@ -346,14 +343,12 @@ const game = {
 	changeTurn () {
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
-			this.showCardBacks();
 			this.showPlayer2Info();
 			window.setTimeout(() => {
 				this.showPlayer2Cards()
 			}, 5000);
 		} else if (this.whosTurn === 2) {
 			this.whosTurn = 1;
-			this.showCardBacks();
 			this.showPlayer1Info();
 			window.setTimeout(() => {
 				this.showPlayer1Cards()
@@ -450,14 +445,13 @@ const game = {
 	},
 	becomeDrawRound () {
 		$('.actions').css('visibility', 'hidden');
-		$('#call').css('visibility', 'visible');
 		$('#call').text('Draw');
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
 		this.drawingRound = true;
 	},
 	becomeBetRound () {
-		$('.actions').css('visibility', 'visible');
+		$('.actions').css('visibility', '');
 		$('#call').text('Check');
 		this.drawingRound = false;
 		this.bettingRound2 = true;
@@ -472,7 +466,6 @@ const game = {
 				}
 			}
 			this.player1.hasDrawn = true;
-			this.showCardBacks();
 			this.showPlayer1Info();
 			window.setTimeout(() => {
 				this.showPlayer1Cards()
@@ -486,14 +479,14 @@ const game = {
 				}
 			}
 			this.player2.hasDrawn = true;
-			this.showCardBacks();
 			this.showPlayer2Info();
 			window.setTimeout(() => {
 				this.showPlayer2Cards()
 			}, 5000);
 		}
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
-			this.becomeBetRound();
+			this.changeTurn();
+			return this.becomeBetRound();
 		}
 		this.changeTurn();
 	},
@@ -535,6 +528,7 @@ const game = {
 		return dealtCard[0];
 	},
 	showPlayer1Info () {
+		this.showCardBacks();
 		for (let i = 1; i <= 5; i++) {
 			if (this.player1.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
@@ -546,18 +540,31 @@ const game = {
 		$('#player1').css('color', 'red');
 		$('#player1-stats').css('border', '1px dashed red');
 		$('#player2-stats').css('border', '');
+		$('#player1-stats').css('background-color', 'salmon');
+		$('#player2-stats').css('background-color', 'lightgray');
+		$('#user-alerts').css('visibility', 'visible');
+		$('#button-bar').css('visibility', 'hidden');
+		$('#call').css('visibility', 'hidden');
+		$('#user-alerts').text(`It\'s ${this.player1.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
 	},
 	showPlayer1Cards () {
+		$('#button-bar').css('visibility', 'visible');
+		$('#call').css('visibility', 'visible');
+		$('#user-alerts').css('visibility', 'hidden');
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
 		}
 	},
 	showPlayer2Cards () {
+		$('#button-bar').css('visibility', 'visible');
+		$('#call').css('visibility', 'visible');
+		$('#user-alerts').css('visibility', 'hidden');
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
 		}
 	},
 	showPlayer2Info () {
+		this.showCardBacks();
 		for (let i = 1; i <= 5; i++) {
 			if (this.player2.currentCards[i - 1].held === true) {
 				$(`#hold${i}`).css('color', 'red');
@@ -569,6 +576,12 @@ const game = {
 		$('#player2').css('color', 'red');
 		$('#player2-stats').css('border', '1px dashed red');
 		$('#player1-stats').css('border', '');
+		$('#player1-stats').css('background-color', 'lightgray');
+		$('#player2-stats').css('background-color', 'salmon');
+		$('#user-alerts').css('visibility', 'visible');
+		$('#button-bar').css('visibility', 'hidden');
+		$('#call').css('visibility', 'hidden');
+		$('#user-alerts').text(`It\'s ${this.player2.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
 	},
 	endHand () {
 		this.replaceCardsInDeck();
