@@ -448,7 +448,7 @@ const game = {
 		this.endHand();
 	},
 	allIn () {
-		if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
+		if (this.player2.currentBet === this.player2.wallet || this.player1.currentBet === this.player1.wallet) {
 				console.log('option1');
 				return this.makeCall();
 			}
