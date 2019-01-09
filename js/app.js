@@ -523,10 +523,10 @@ const game = {
 	updateStats () {
 		$('#P1-wallet').text(`Wallet: ${this.player1.wallet - this.player1.currentBet}`);
 		$('#P1-bet').text(`Current Bet: ${this.player1.currentBet}`);
-		$('#P1-hand').text(`Last Hand: ${this.player1.lastHand}`);
+		$('#P1-hand').text(`Last Shown Hand: ${this.player1.lastHand}`);
 		$('#P2-wallet').text(`Wallet: ${this.player2.wallet - this.player2.currentBet}`);
 		$('#P2-bet').text(`Current Bet: ${this.player2.currentBet}`);
-		$('#P2-hand').text(`Last Hand: ${this.player2.lastHand}`);
+		$('#P2-hand').text(`Last Shown Hand: ${this.player2.lastHand}`);
 		if (this.player1.previousCards.length > 0) {
 			$('#P1-previous-hand').text(`${this.player1.previousCards[0].name}, ${this.player1.previousCards[1].name}, ${this.player1.previousCards[2].name}, ${this.player1.previousCards[3].name}, ${this.player1.previousCards[4].name}`);
 			$('#P2-previous-hand').text(`${this.player2.previousCards[0].name}, ${this.player2.previousCards[1].name}, ${this.player2.previousCards[2].name}, ${this.player2.previousCards[3].name}, ${this.player2.previousCards[4].name}`);

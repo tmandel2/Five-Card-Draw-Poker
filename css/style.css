@@ -1,7 +1,7 @@
 body {
 	height: 100vh;
 	width: 100%;
-	background-image: url("../images/felt.jpg");
+	background-image: url("../images/felt2.jpg");
 	background-size: cover;
 	background-color: hsla(50, 33%, 25%, 0.3);
 }
@@ -153,6 +153,7 @@ form {
 .actions {
 	width: 150px;
 	height: 40px;
+	margin: auto 0;
 }
 
 #bet-submit {
