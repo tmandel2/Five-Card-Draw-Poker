@@ -407,7 +407,6 @@ const game = {
 			this.player2.makeBet($currentBet + this.player2.currentBet);
 			if (this.bettingRound2 === true) {
 				this.checkHandValue();
-				return;
 			} else {
 				this.pot = this.player1.currentBet + this.player2.currentBet;
 				this.updateStats();
@@ -419,21 +418,22 @@ const game = {
 			this.player1.makeBet($currentBet + this.player1.currentBet);
 			if (this.bettingRound2 === true) {
 				this.checkHandValue();
-				return;
+			} else {
+				this.pot = this.player1.currentBet + this.player2.currentBet;
+				this.updateStats();
+				this.changeTurn();
+				this.becomeDrawRound();
 			}
 		} else if (this.player1.currentBet === this.player2.currentBet) {
 			if (this.player1.hasChecked && this.bettingRound2) {
 				this.checkHandValue();
-				return;
 			} else if (this.player1.hasChecked) {
 				this.changeTurn();
 				this.becomeDrawRound();
-				return;
 			} else {
 				this.player1.hasChecked = true;
 				this.player2.hasChecked = true;
 				this.changeTurn();
-				return;
 			}
 		}
 	},
@@ -449,9 +449,17 @@ const game = {
 	},
 	allIn () {
 		if (this.whosTurn === 1) {
+			if (this.player2.currentBet === this.player1.wallet) {
+				console.log('option1');
+				return this.makeCall();
+			}
 			this.player1.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
 		} else {
+			if (this.player1.currentBet === this.player2.wallet) {
+				console.log('option2');
+				return this.makeCall();
+			}
 			this.player2.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
 		}
