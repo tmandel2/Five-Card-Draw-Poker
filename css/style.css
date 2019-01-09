@@ -58,7 +58,9 @@ form {
 	width: 45%;
 	font-size: 40px;
 	color: white;
+	text-shadow: 1px 1px 2px black;
 	text-align: center;
+	font-weight: bold;
 }
 
 #player-stats {
@@ -70,11 +72,12 @@ form {
 }
 
 #player1-stats, #player2-stats {
+	display: flex;
+	flex-direction: column;
 	width: 45%;
 	border: 1px solid black;
 	margin: 10px;
 	background-color: lightgray;
-	align-content: center;
 	justify-content: center;
 	font-size: 30px;
 	text-align: center;
@@ -162,9 +165,7 @@ button {
 
 #hand-information {
 	width: 30%;
-	/*background-color: lightgray;*/
-	font-size: 20px;
-	/*border: 1px solid black;*/
+	font-size: 25px;
 	margin: -20px auto 0 auto;
 	height: 25px;
 	text-align: center;

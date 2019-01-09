@@ -360,7 +360,6 @@ const game = {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
 		if (this.whosTurn === 1) {
 			if (this.player1.currentBet + $betAmount > this.player1.wallet) {
-				// (this.player2.currentBet + $betAmount) === false) {
 				return;
 			}
 			if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
@@ -372,7 +371,6 @@ const game = {
 			}
 		} else if (this.whosTurn === 2) {
 			if (this.player2.currentBet + $betAmount > this.player2.wallet) {
-				// (this.player2.makeBet(this.player1.currentBet + $betAmount) === false) {
 				return;
 			}
 			if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
@@ -464,12 +462,14 @@ const game = {
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
 		this.drawingRound = true;
+		$('#hand-information').text(`Hand Number: ${this.handNumber}`);
 	},
 	becomeBetRound () {
 		$('.actions').css('visibility', '');
 		$('#call').text('Check');
 		this.drawingRound = false;
 		this.bettingRound2 = true;
+		$('#hand-information').text(`Hand Number: ${this.handNumber}`);
 	},
 	drawCards () {
 		if (this.whosTurn === 1) {
