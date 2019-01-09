@@ -24,7 +24,7 @@ class Player {
 	makeBet (amount) {
 		if (amount <= this.wallet && amount > 0) {
 			this.currentBet = amount;
-			return this.currentBet
+			return this.currentBet;
 		} else {
 			return false;
 		}
@@ -339,6 +339,7 @@ const game = {
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
 		this.updateStats();
+		$('#hand-information').text(`Hand Number: ${this.handNumber}`);
 	},
 	changeTurn () {
 		if (this.whosTurn === 1) {
@@ -358,14 +359,28 @@ const game = {
 	makeBet () {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
 		if (this.whosTurn === 1) {
-			this.player1.makeBet(this.player2.currentBet + $betAmount);
-			if (this.player1.makeBet(this.player2.currentBet + $betAmount) === false) {
+			if (this.player1.currentBet + $betAmount > this.player1.wallet) {
+				// (this.player2.currentBet + $betAmount) === false) {
 				return;
 			}
+			if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
+				console.log(this.player2.wallet-this.player1.currentBet);
+				this.player1.makeBet(this.player2.wallet - this.player1.currentBet);
+			} else {
+				console.log("BROKEN");
+				this.player1.makeBet(this.player2.currentBet + $betAmount);
+			}
 		} else if (this.whosTurn === 2) {
-			this.player2.makeBet(this.player1.currentBet + $betAmount);
-			if (this.player2.makeBet(this.player1.currentBet + $betAmount) === false) {
+			if (this.player2.currentBet + $betAmount > this.player2.wallet) {
+				// (this.player2.makeBet(this.player1.currentBet + $betAmount) === false) {
 				return;
+			}
+			if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
+				console.log(this.player1.wallet - this.player2.currentBet);
+				this.player2.makeBet(this.player1.wallet - this.player2.currentBet);
+			} else {
+				console.log("BROKEN");
+				this.player2.makeBet(this.player1.currentBet + $betAmount);
 			}
 		}
 		if (this.player1.currentBet - this.player2.currentBet > 0) {
