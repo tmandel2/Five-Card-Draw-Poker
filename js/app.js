@@ -448,18 +448,22 @@ const game = {
 		this.endHand();
 	},
 	allIn () {
-		if (this.whosTurn === 1) {
-			if (this.player2.currentBet === this.player1.wallet) {
+		if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
 				console.log('option1');
 				return this.makeCall();
 			}
+		if (this.whosTurn === 1) {
+			// if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
+			// 	console.log('option1');
+			// 	return this.makeCall();
+			// }
 			this.player1.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
 		} else {
-			if (this.player1.currentBet === this.player2.wallet) {
-				console.log('option2');
-				return this.makeCall();
-			}
+			// if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
+			// 	console.log('option2');
+			// 	return this.makeCall();
+			// }
 			this.player2.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
 		}
