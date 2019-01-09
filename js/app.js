@@ -517,7 +517,7 @@ const game = {
 		}
 	},
 	holdCard (card) {
-		const $cardClass = `.${$(card).attr('class')}`;
+		const $cardClass = `.${$(card).attr('id')}`;
 		const whichCard = parseInt($cardClass.substring(5), 10);
 		if (this.drawingRound === true) {
 			if (this.whosTurn === 1) {
@@ -689,69 +689,19 @@ const game = {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
 		}
-		$('#card1')
+		$('.cards')
 			.velocity({rotateY: "-360deg"}, {
 				duration:50
 			})
 			.velocity("fadeOut", {
-				duration: 2450
+				delay: 1450,
+				duration: 1000
 			})
 			.velocity("fadeIn", {
-				duration: 2450
+				duration: 1000
 			})
 			.velocity({rotateY: "360deg"}, {
-				duration: 50
-			});
-		$('#card2')
-			.velocity({rotateY: "-360deg"}, {
-				duration:50
-			})
-			.velocity("fadeOut", {
-				duration: 2450
-			})
-			.velocity("fadeIn", {
-				duration: 2450
-			})
-			.velocity({rotateY: "360deg"}, {
-				duration: 50
-			});
-		$('#card3')
-			.velocity({rotateY: "-360deg"}, {
-				duration:50
-			})
-			.velocity("fadeOut", {
-				duration: 2450
-			})
-			.velocity("fadeIn", {
-				duration: 2450
-			})
-			.velocity({rotateY: "360deg"}, {
-				duration: 50
-			});
-		$('#card4')
-			.velocity({rotateY: "-360deg"}, {
-				duration:50
-			})
-			.velocity("fadeOut", {
-				duration: 2450
-			})
-			.velocity("fadeIn", {
-				duration: 2450
-			})
-			.velocity({rotateY: "360deg"}, {
-				duration: 50
-			});
-		$('#card5')
-			.velocity({rotateY: "-360deg"}, {
-				duration:50
-			})
-			.velocity("fadeOut", {
-				duration: 2450
-			})
-			.velocity("fadeIn", {
-				duration: 2450
-			})
-			.velocity({rotateY: "360deg"}, {
+				delay: 1450,
 				duration: 50
 			});
 	},
@@ -810,11 +760,3 @@ $('#all-in').on('click', (e) => {
 $('img').on('click', (e) => {
 	game.holdCard(e.target);
 });
-
-// $('#player1-previous').on('click', (e) => {
-// 	game.player1Previous();
-// });
-
-// $('#player2-previous').on('click', (e) => {
-// 	game.player2Previous();
-// })
