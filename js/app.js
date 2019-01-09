@@ -614,12 +614,12 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
-		$('#player1').css('color', 'white');
-		$('#player2').css('color', 'red');
+		// $('#player1').css('color', 'white');
+		// $('#player2').css('color', 'red');
 		$('#player2-stats').css('border', '1px dashed red');
 		$('#player1-stats').css('border', '');
-		$('#player1-stats').css('background-color', 'lightgray');
-		$('#player2-stats').css('background-color', 'salmon');
+		// $('#player1-stats').css('background-color', 'lightgray');
+		// $('#player2-stats').css('background-color', 'salmon');
 		$('#user-alerts').css('visibility', 'visible');
 		$('#button-bar').css('visibility', 'hidden');
 		$('#call').css('visibility', 'hidden');
@@ -674,15 +674,40 @@ const game = {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
 		}
 		$('#card1')
-			.velocity("fadeIn", {duration: 3500 });
+			.velocity("reverse")
+			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "360deg"}, {
+				delay: 1500,
+				duration: 50
+			});
 		$('#card2')
-			.velocity("fadeIn", {duration: 3500 });
+			.velocity("reverse")
+			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "360deg"}, {
+				delay: 1500,
+				duration: 50
+			});
 		$('#card3')
-			.velocity("fadeIn", {duration: 3500 });
+			.velocity("reverse")
+			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "360deg"}, {
+				delay: 1500,
+				duration: 50
+			});
 		$('#card4')
-			.velocity("fadeIn", {duration: 3500 });
+			.velocity("reverse")
+			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "360deg"}, {
+				delay: 1500,
+				duration: 50
+			});
 		$('#card5')
-			.velocity("fadeIn", {duration: 3500 });
+			.velocity("reverse")
+			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "360deg"}, {
+				delay: 1500,
+				duration: 50
+			});
 	},
 	checkWin() {
 		if (this.player1.wallet === 0) {
