@@ -83,6 +83,10 @@ form {
 	text-align: center;
 }
 
+#P2-previous-hand, #P1-previous-hand {
+	font-size: 15px;
+}
+
 #player1-stats p, #player2-stats p {
 	margin: 0;
 }
@@ -164,10 +168,20 @@ button {
 }
 
 #hand-information {
-	width: 30%;
+	width: 50%;
 	font-size: 25px;
 	margin: -20px auto 0 auto;
 	height: 25px;
 	text-align: center;
 	color: white;
+}
+
+#info-previous {
+	display: flex;
+	margin: 0 20px;
+}
+
+.previous-hand {
+	margin: -20px 0 0 0;
+	visibility: hidden;
 }

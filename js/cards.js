@@ -6,6 +6,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/2_of_hearts.png",
 		inPlay: false,
+		name: "2 of Hearts"
 	},
 	{
 		held: false,
@@ -14,6 +15,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/2_of_spades.png",
 		inPlay: false,
+		name: "2 of Spades"
 	},
 	{
 		held: false,
@@ -22,6 +24,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/2_of_diamonds.png",
 		inPlay: false,
+		name: "2 of Diamonds"
 	},
 	{
 		held: false,
@@ -30,6 +33,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/2_of_clubs.png",
 		inPlay: false,
+		name: "2 of Clubs"
 	},
 	{
 		held: false,
@@ -38,6 +42,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/3_of_hearts.png",
 		inPlay: false,
+		name: "3 of Hearts"
 	},
 	{
 		held: false,
@@ -46,6 +51,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/3_of_spades.png",
 		inPlay: false,
+		name: "3 of Spades"
 	},
 	{
 		held: false,
@@ -54,6 +60,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/3_of_diamonds.png",
 		inPlay: false,
+		name: "3 of Diamonds"
 	},
 	{
 		held: false,
@@ -62,6 +69,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/3_of_clubs.png",
 		inPlay: false,
+		name: "3 of Clubs"
 	},
 	{
 		held: false,
@@ -70,6 +78,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/4_of_hearts.png",
 		inPlay: false,
+		name: "4 of Hearts"
 	},
 	{
 		held: false,
@@ -78,6 +87,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/4_of_spades.png",
 		inPlay: false,
+		name: "4 of Spades"
 	},
 	{
 		held: false,
@@ -86,6 +96,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/4_of_diamonds.png",
 		inPlay: false,
+		name: "4 of Diamonds"
 	},
 	{
 		held: false,
@@ -94,6 +105,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/4_of_clubs.png",
 		inPlay: false,
+		name: "4 of Clubs"
 	},
 	{
 		held: false,
@@ -102,6 +114,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/5_of_hearts.png",
 		inPlay: false,
+		name: "5 of Hearts"
 	},
 	{
 		held: false,
@@ -110,6 +123,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/5_of_spades.png",
 		inPlay: false,
+		name: "5 of Spades"
 	},
 	{
 		held: false,
@@ -118,6 +132,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/5_of_diamonds.png",
 		inPlay: false,
+		name: "5 of Diamonds"
 	},
 	{
 		held: false,
@@ -126,6 +141,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/5_of_clubs.png",
 		inPlay: false,
+		name: "5 of Clubs"
 	},
 	{
 		held: false,
@@ -134,6 +150,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/6_of_hearts.png",
 		inPlay: false,
+		name: "6 of Hearts"
 	},
 	{
 		held: false,
@@ -142,6 +159,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/6_of_spades.png",
 		inPlay: false,
+		name: "6 of Spades"
 	},
 	{
 		held: false,
@@ -150,6 +168,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/6_of_diamonds.png",
 		inPlay: false,
+		name: "6 of Diamonds"
 	},
 	{
 		held: false,
@@ -158,6 +177,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/6_of_clubs.png",
 		inPlay: false,
+		name: "6 of Clubs"
 	},
 	{
 		held: false,
@@ -166,6 +186,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/7_of_hearts.png",
 		inPlay: false,
+		name: "7 of Hearts"
 	},
 	{
 		held: false,
@@ -174,6 +195,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/7_of_spades.png",
 		inPlay: false,
+		name: "7 of Spades"
 	},
 	{
 		held: false,
@@ -182,6 +204,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/7_of_diamonds.png",
 		inPlay: false,
+		name: "7 of Diamonds"
 	},
 	{
 		held: false,
@@ -190,6 +213,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/7_of_clubs.png",
 		inPlay: false,
+		name: "7 of Clubs"
 	},
 	{
 		held: false,
@@ -198,6 +222,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/8_of_hearts.png",
 		inPlay: false,
+		name: "8 of Hearts"
 	},
 	{
 		held: false,
@@ -206,6 +231,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/8_of_spades.png",
 		inPlay: false,
+		name: "8 of Spades"
 	},
 	{
 		held: false,
@@ -214,6 +240,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/8_of_diamonds.png",
 		inPlay: false,
+		name: "8 of Diamonds"
 	},
 	{
 		held: false,
@@ -222,6 +249,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/8_of_clubs.png",
 		inPlay: false,
+		name: "8 of Clubs"
 	},
 	{
 		held: false,
@@ -230,6 +258,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/9_of_hearts.png",
 		inPlay: false,
+		name: "9 of Hearts"
 	},
 	{
 		held: false,
@@ -238,6 +267,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/9_of_spades.png",
 		inPlay: false,
+		name: "9 of Spades"
 	},
 	{
 		held: false,
@@ -246,6 +276,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/9_of_diamonds.png",
 		inPlay: false,
+		name: "9 of Diamonds"
 	},
 	{
 		held: false,
@@ -254,6 +285,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/9_of_clubs.png",
 		inPlay: false,
+		name: "9 of Clubs"
 	},
 	{
 		held: false,
@@ -262,6 +294,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/10_of_hearts.png",
 		inPlay: false,
+		name: "10 of Hearts"
 	},
 	{
 		held: false,
@@ -270,6 +303,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/10_of_spades.png",
 		inPlay: false,
+		name: "10 of Spades"
 	},
 	{
 		held: false,
@@ -278,6 +312,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/10_of_diamonds.png",
 		inPlay: false,
+		name: "10 of Diamonds"
 	},
 	{
 		held: false,
@@ -286,6 +321,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/10_of_clubs.png",
 		inPlay: false,
+		name: "10 of Clubs"
 	},
 	{
 		held: false,
@@ -294,6 +330,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/jack_of_hearts2.png",
 		inPlay: false,
+		name: "Jack of Hearts"
 	},
 	{
 		held: false,
@@ -302,6 +339,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/jack_of_spades2.png",
 		inPlay: false,
+		name: "Jack of Spades"
 	},
 	{
 		held: false,
@@ -310,6 +348,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/jack_of_diamonds2.png",
 		inPlay: false,
+		name: "Jack of Diamonds"
 	},
 	{
 		held: false,
@@ -318,6 +357,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/jack_of_clubs2.png",
 		inPlay: false,
+		name: "Jack of Clubs"
 	},
 	{
 		held: false,
@@ -326,6 +366,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/queen_of_hearts2.png",
 		inPlay: false,
+		name: "Queen of Hearts"
 	},
 	{
 		held: false,
@@ -334,6 +375,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/queen_of_spades2.png",
 		inPlay: false,
+		name: "Queen of Spades"
 	},
 	{
 		held: false,
@@ -342,6 +384,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/queen_of_diamonds2.png",
 		inPlay: false,
+		name: "Queen of Diamonds"
 	},
 	{
 		held: false,
@@ -350,6 +393,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/queen_of_clubs2.png",
 		inPlay: false,
+		name: "Queen of Clubs"
 	},
 	{
 		held: false,
@@ -358,6 +402,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/king_of_hearts2.png",
 		inPlay: false,
+		name: "King of Hearts"
 	},
 	{
 		held: false,
@@ -366,6 +411,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/king_of_spades2.png",
 		inPlay: false,
+		name: "King of Spades"
 	},
 	{
 		held: false,
@@ -374,6 +420,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/king_of_diamonds2.png",
 		inPlay: false,
+		name: "King of Diamonds"
 	},
 	{
 		held: false,
@@ -382,6 +429,7 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/king_of_clubs2.png",
 		inPlay: false,
+		name: "King of Clubs"
 	},
 	{
 		held: false,
@@ -390,6 +438,7 @@ const deck = [
 		suit: "hearts",
 		image: "images/Playing_cards/playing-cards/ace_of_hearts.png",
 		inPlay: false,
+		name: "Ace of Hearts"
 	},
 	{
 		held: false,
@@ -398,6 +447,7 @@ const deck = [
 		suit: "spades",
 		image: "images/Playing_cards/playing-cards/ace_of_spades.png",
 		inPlay: false,
+		name: "Ace of Spades"
 	},
 	{
 		held: false,
@@ -406,6 +456,7 @@ const deck = [
 		suit: "diamonds",
 		image: "images/Playing_cards/playing-cards/ace_of_diamonds.png",
 		inPlay: false,
+		name: "Ace of Diamonds"
 	},
 	{
 		held: false,
@@ -414,5 +465,6 @@ const deck = [
 		suit: "clubs",
 		image: "images/Playing_cards/playing-cards/ace_of_clubs.png",
 		inPlay: false,
+		name: "Ace of Clubs"
 	}
 ]

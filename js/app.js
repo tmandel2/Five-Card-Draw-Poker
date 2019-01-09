@@ -19,7 +19,8 @@ class Player {
 		this.hasChecked = false,
 		this.sortedCardValues = [],
 		this.cardSuits = [],
-		this.lastHand = ''
+		this.lastHand = '',
+		this.previousCards = []
 	}
 	makeBet (amount) {
 		if (amount <= this.wallet && amount > 0) {
@@ -226,15 +227,18 @@ const game = {
 		$('#player-names').css("visibility", "visible");
 		$('#hold-row').css("visibility", "visible");
 		$('#card-location').css("visibility", "visible");
+		$('.previous-hand').css("visibility", "visible");
 		$('#player1').text(`${this.player1.name}`);
 		$('#player2').text(`${this.player2.name}`);
 		$('#player1').css('color', 'red');
 		$("#player1-stats").append(`<p id='P1-wallet'>Wallet: ${this.player1.wallet}</p>`);
 		$("#player1-stats").append(`<p id='P1-bet'>Current Bet: ${this.player1.currentBet}</p>`);
-		$("#player1-stats").append(`<p id='P1-hand'>Last Hand: ${this.player1.lastHand}</p>`);
+		$("#player1-stats").append(`<p id='P1-hand'>Last Shown Hand: ${this.player1.lastHand}</p>`);
+		$("#player1-stats").append(`<p id='P1-previous-hand'></p>`);
 		$("#player2-stats").append(`<p id='P2-wallet'>Wallet: ${this.player2.wallet}</p>`);
 		$("#player2-stats").append(`<p id='P2-bet'>Current Bet: ${this.player2.currentBet}</p>`);
-		$("#player2-stats").append(`<p id='P2-hand'>Last Hand: ${this.player2.lastHand}</p>`);
+		$("#player2-stats").append(`<p id='P2-hand'>Last Shown Hand: ${this.player2.lastHand}</p>`);
+		$("#player2-stats").append(`<p id='P2-previous-hand'></p>`);
 		this.whosTurn = 1;
 		this.dealCards();
 	},
@@ -247,6 +251,8 @@ const game = {
 		this.player1.loseHand(this.player1.currentBet);
 	},
 	checkHandValue () {
+		this.player1.previousCards = this.player1.currentCards;
+		this.player2.previousCards = this.player2.currentCards;
 		if (this.player1.handValue() > this.player2.handValue()) {
 			this.player1Wins();
 		} else if (this.player2.handValue() > this.player1.handValue()) {
@@ -363,10 +369,8 @@ const game = {
 				return;
 			}
 			if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
-				console.log(this.player2.wallet-this.player1.currentBet);
 				this.player1.makeBet(this.player2.wallet - this.player1.currentBet);
 			} else {
-				console.log("BROKEN");
 				this.player1.makeBet(this.player2.currentBet + $betAmount);
 			}
 		} else if (this.whosTurn === 2) {
@@ -374,10 +378,8 @@ const game = {
 				return;
 			}
 			if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
-				console.log(this.player1.wallet - this.player2.currentBet);
 				this.player2.makeBet(this.player1.wallet - this.player2.currentBet);
 			} else {
-				console.log("BROKEN");
 				this.player2.makeBet(this.player1.currentBet + $betAmount);
 			}
 		}
@@ -400,39 +402,40 @@ const game = {
 		}
 	},
 	makeCall () {
-			if (this.player1.currentBet > this.player2.currentBet) {
-				let $currentBet = this.player1.currentBet - this.player2.currentBet;
-				this.player2.makeBet($currentBet + this.player2.currentBet);
-				if (this.bettingRound2 === true) {
-					this.checkHandValue();
-					return;
-				}
-			} else if (this.player1.currentBet < this.player2.currentBet) {
-				let $currentBet = this.player2.currentBet - this.player1.currentBet;
-				this.player1.makeBet($currentBet + this.player1.currentBet);
-				if (this.bettingRound2 === true) {
-					this.checkHandValue();
-					return;
-				}
-			} else if (this.player1.currentBet === this.player2.currentBet) {
-				if (this.player1.hasChecked && this.bettingRound2) {
-					this.checkHandValue();
-					return;
-				} else if (this.player1.hasChecked) {
-					this.changeTurn();
-					this.becomeDrawRound();
-					return;
-				} else {
-					this.player1.hasChecked = true;
-					this.player2.hasChecked = true;
-					this.changeTurn();
-					return;
-				}
+		if (this.player1.currentBet > this.player2.currentBet) {
+			let $currentBet = this.player1.currentBet - this.player2.currentBet;
+			this.player2.makeBet($currentBet + this.player2.currentBet);
+			if (this.bettingRound2 === true) {
+				this.checkHandValue();
+				return;
+			} else {
+				this.pot = this.player1.currentBet + this.player2.currentBet;
+				this.updateStats();
+				this.changeTurn();
+				this.becomeDrawRound();
 			}
-			this.pot = this.player1.currentBet + this.player2.currentBet;
-			this.updateStats();
-			this.changeTurn();
-			this.becomeDrawRound();
+		} else if (this.player1.currentBet < this.player2.currentBet) {
+			let $currentBet = this.player2.currentBet - this.player1.currentBet;
+			this.player1.makeBet($currentBet + this.player1.currentBet);
+			if (this.bettingRound2 === true) {
+				this.checkHandValue();
+				return;
+			}
+		} else if (this.player1.currentBet === this.player2.currentBet) {
+			if (this.player1.hasChecked && this.bettingRound2) {
+				this.checkHandValue();
+				return;
+			} else if (this.player1.hasChecked) {
+				this.changeTurn();
+				this.becomeDrawRound();
+				return;
+			} else {
+				this.player1.hasChecked = true;
+				this.player2.hasChecked = true;
+				this.changeTurn();
+				return;
+			}
+		}
 	},
 	makeFold () {
 		if (this.whosTurn === 1) {
@@ -462,7 +465,7 @@ const game = {
 		this.player1.hasChecked = false;
 		this.player2.hasChecked = false;
 		this.drawingRound = true;
-		$('#hand-information').text(`Hand Number: ${this.handNumber}`);
+		$('#hand-information').text(`Click on Card to Hold It`);
 	},
 	becomeBetRound () {
 		$('.actions').css('visibility', '');
@@ -512,6 +515,10 @@ const game = {
 		$('#P2-wallet').text(`Wallet: ${this.player2.wallet - this.player2.currentBet}`);
 		$('#P2-bet').text(`Current Bet: ${this.player2.currentBet}`);
 		$('#P2-hand').text(`Last Hand: ${this.player2.lastHand}`);
+		if (this.player1.previousCards.length > 0) {
+			$('#P1-previous-hand').text(`${this.player1.previousCards[0].name}, ${this.player1.previousCards[1].name}, ${this.player1.previousCards[2].name}, ${this.player1.previousCards[3].name}, ${this.player1.previousCards[4].name}`);
+			$('#P2-previous-hand').text(`${this.player2.previousCards[0].name}, ${this.player2.previousCards[1].name}, ${this.player2.previousCards[2].name}, ${this.player2.previousCards[3].name}, ${this.player2.previousCards[4].name}`);
+		}
 	},
 	holdCard (card) {
 		const $cardClass = `.${$(card).attr('class')}`;
@@ -678,3 +685,11 @@ $('#all-in').on('click', (e) => {
 $('img').on('click', (e) => {
 	game.holdCard(e.target);
 });
+
+// $('#player1-previous').on('click', (e) => {
+// 	game.player1Previous();
+// });
+
+// $('#player2-previous').on('click', (e) => {
+// 	game.player2Previous();
+// })
