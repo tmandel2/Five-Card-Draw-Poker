@@ -453,17 +453,9 @@ const game = {
 				return this.makeCall();
 			}
 		if (this.whosTurn === 1) {
-			// if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
-			// 	console.log('option1');
-			// 	return this.makeCall();
-			// }
 			this.player1.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
 		} else {
-			// if (this.player1.currentBet === this.player2.wallet || this.player2.currentBet === this.player1.wallet) {
-			// 	console.log('option2');
-			// 	return this.makeCall();
-			// }
 			this.player2.makeBet(Math.min(this.player1.wallet, this.player2.wallet));
 			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
 		}
@@ -496,10 +488,6 @@ const game = {
 				}
 			}
 			this.player1.hasDrawn = true;
-			this.showPlayer1Info();
-			window.setTimeout(() => {
-				this.showPlayer1Cards()
-			}, 5000);
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
@@ -509,10 +497,6 @@ const game = {
 				}
 			}
 			this.player2.hasDrawn = true;
-			this.showPlayer2Info();
-			window.setTimeout(() => {
-				this.showPlayer2Cards()
-			}, 5000);
 		}
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
 			this.changeTurn();
@@ -641,6 +625,16 @@ const game = {
 		for (let i = 1; i <= 5; i++) {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
 		}
+		$('#card1')
+			.velocity("fadeIn", {duration: 3500 });
+		$('#card2')
+			.velocity("fadeIn", {duration: 3500 });
+		$('#card3')
+			.velocity("fadeIn", {duration: 3500 });
+		$('#card4')
+			.velocity("fadeIn", {duration: 3500 });
+		$('#card5')
+			.velocity("fadeIn", {duration: 3500 });
 	},
 	checkWin() {
 		if (this.player1.wallet === 0) {
