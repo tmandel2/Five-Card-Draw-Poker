@@ -230,7 +230,7 @@ const game = {
 		$('.previous-hand').css("visibility", "visible");
 		$('#player1').text(`${this.player1.name}`);
 		$('#player2').text(`${this.player2.name}`);
-		$('#player1').css('color', 'red');
+		// $('#player1').css('color', 'red');
 		$("#player1-stats").append(`<p id='P1-wallet'>Wallet: ${this.player1.wallet}</p>`);
 		$("#player1-stats").append(`<p id='P1-bet'>Current Bet: ${this.player1.currentBet}</p>`);
 		$("#player1-stats").append(`<p id='P1-hand'>Last Shown Hand: ${this.player1.lastHand}</p>`);
@@ -554,16 +554,40 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
-		$('#player2').css('color', 'white');
-		$('#player1').css('color', 'red');
+		// $('#player2').css('color', 'white');
+		// $('#player1').css('color', 'red');
 		$('#player1-stats').css('border', '1px dashed red');
 		$('#player2-stats').css('border', '');
-		$('#player1-stats').css('background-color', 'salmon');
-		$('#player2-stats').css('background-color', 'lightgray');
+		// $('#player1-stats').css('background-color', 'salmon');
+		// $('#player2-stats').css('background-color', 'lightgray');
 		$('#user-alerts').css('visibility', 'visible');
 		$('#button-bar').css('visibility', 'hidden');
 		$('#call').css('visibility', 'hidden');
 		$('#user-alerts').text(`It\'s ${this.player1.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
+		$('#player2-stats')
+			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({backgroundColor: "#D3D3D3"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player1-stats')
+			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({backgroundColor: "#FA8072"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player2')
+			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({color: "#FFFFFF"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player1')
+			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({color: "#FF0000"}, {
+				queue: false,
+				duration: 3500
+			});
 	},
 	showPlayer1Cards () {
 		$('#button-bar').css('visibility', 'visible');
@@ -600,6 +624,30 @@ const game = {
 		$('#button-bar').css('visibility', 'hidden');
 		$('#call').css('visibility', 'hidden');
 		$('#user-alerts').text(`It\'s ${this.player2.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
+		$('#player1-stats')
+			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({backgroundColor: "#D3D3D3"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player2-stats')
+			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({backgroundColor: "#FA8072"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player1')
+			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({color: "#FFFFFF"}, {
+				queue: false,
+				duration: 3500
+			});
+		$('#player2')
+			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({color: "#FF0000"}, {
+				queue: false,
+				duration: 3500
+			});
 	},
 	endHand () {
 		this.replaceCardsInDeck();
