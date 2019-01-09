@@ -565,25 +565,33 @@ const game = {
 		$('#call').css('visibility', 'hidden');
 		$('#user-alerts').text(`It\'s ${this.player1.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
 		$('#player2-stats')
-			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({opacity: .5}, {
+				duration: 3500
+			})
 			.velocity({backgroundColor: "#D3D3D3"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player1-stats')
-			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({opacity: 1}, {
+				duration: 3500
+			})
 			.velocity({backgroundColor: "#FA8072"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player2')
-			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({opacity: .5}, {
+				duration: 3500
+			})
 			.velocity({color: "#FFFFFF"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player1')
-			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({opacity: 1}, {
+				duration: 3500
+			})
 			.velocity({color: "#FF0000"}, {
 				queue: false,
 				duration: 3500
@@ -625,25 +633,33 @@ const game = {
 		$('#call').css('visibility', 'hidden');
 		$('#user-alerts').text(`It\'s ${this.player2.name}\'s turn. You have 5 seconds to give them the computer. Cards are coming!`);
 		$('#player1-stats')
-			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({opacity: .5}, {
+				duration: 3500
+			})
 			.velocity({backgroundColor: "#D3D3D3"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player2-stats')
-			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({opacity: 1}, {
+				duration: 3500
+			})
 			.velocity({backgroundColor: "#FA8072"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player1')
-			.velocity({opacity: .5}, {duration: 3500})
+			.velocity({opacity: .5}, {
+				duration: 3500
+			})
 			.velocity({color: "#FFFFFF"}, {
 				queue: false,
 				duration: 3500
 			});
 		$('#player2')
-			.velocity({opacity: 1}, {duration: 3500})
+			.velocity({opacity: 1}, {
+				duration: 3500
+			})
 			.velocity({color: "#FF0000"}, {
 				queue: false,
 				duration: 3500
@@ -674,38 +690,68 @@ const game = {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
 		}
 		$('#card1')
-			.velocity("reverse")
-			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "-360deg"}, {
+				duration:50
+			})
+			.velocity("fadeOut", {
+				duration: 2450
+			})
+			.velocity("fadeIn", {
+				duration: 2450
+			})
 			.velocity({rotateY: "360deg"}, {
-				delay: 1500,
 				duration: 50
 			});
 		$('#card2')
-			.velocity("reverse")
-			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "-360deg"}, {
+				duration:50
+			})
+			.velocity("fadeOut", {
+				duration: 2450
+			})
+			.velocity("fadeIn", {
+				duration: 2450
+			})
 			.velocity({rotateY: "360deg"}, {
-				delay: 1500,
 				duration: 50
 			});
 		$('#card3')
-			.velocity("reverse")
-			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "-360deg"}, {
+				duration:50
+			})
+			.velocity("fadeOut", {
+				duration: 2450
+			})
+			.velocity("fadeIn", {
+				duration: 2450
+			})
 			.velocity({rotateY: "360deg"}, {
-				delay: 1500,
 				duration: 50
 			});
 		$('#card4')
-			.velocity("reverse")
-			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "-360deg"}, {
+				duration:50
+			})
+			.velocity("fadeOut", {
+				duration: 2450
+			})
+			.velocity("fadeIn", {
+				duration: 2450
+			})
 			.velocity({rotateY: "360deg"}, {
-				delay: 1500,
 				duration: 50
 			});
 		$('#card5')
-			.velocity("reverse")
-			.velocity("fadeIn", {duration: 3500 })
+			.velocity({rotateY: "-360deg"}, {
+				duration:50
+			})
+			.velocity("fadeOut", {
+				duration: 2450
+			})
+			.velocity("fadeIn", {
+				duration: 2450
+			})
 			.velocity({rotateY: "360deg"}, {
-				delay: 1500,
 				duration: 50
 			});
 	},
