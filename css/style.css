@@ -6,13 +6,25 @@ body {
 	background-color: hsla(50, 33%, 25%, 0.3);
 }
 
+@font-face {
+	font-family: "Coffee Tin";
+	src: url("../fonts/CoffeeTinInitials.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Poker";
+	src: url("../fonts/Poker.otf") format("opentype");
+}
+
 h1 {
+	/*font-family: "Coffee Tin", sans-serif;*/
+	font-family: "Poker", sans-serif;
 	text-align: center;
-	text-shadow: 1px 1px 2px black;
+	text-shadow: 2px 2px 4px black;
 	align-content: center;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	margin-top: 0;
-	font-size: 50px;
+	font-size: 60px;
 	height: 60px;
 	color: white;
 }
@@ -36,14 +48,17 @@ form {
 
 #players-submit {
 	background-color: lightyellow;
+	font-family: "Poker", sans-serif;
 }
 
 #player1-name-input {
 	background-color: aliceblue;
+	font-family: "Poker", sans-serif;
 }
 
 #player2-name-input {
 	background-color: lavenderblush;
+	font-family: "Poker", sans-serif;
 }
 
 #player-names {
@@ -52,6 +67,7 @@ form {
 	display: flex;
 	visibility: hidden;
 	justify-content: space-between;
+	font-family: "Poker", sans-serif;
 }
 
 #player1, #player2 {
@@ -69,6 +85,7 @@ form {
 	display: flex;
 	justify-content: space-between;
 	visibility: hidden;
+	font-family: "Poker", sans-serif;
 }
 
 #player1-stats, #player2-stats {
@@ -84,7 +101,7 @@ form {
 }
 
 #P2-previous-hand, #P1-previous-hand {
-	font-size: 15px;
+	font-size: 12px;
 }
 
 #player1-stats p, #player2-stats p {
@@ -105,6 +122,7 @@ form {
 	margin: 5px auto 0 auto;
 	/*margin: 0 30px;*/
 	visibility: hidden;
+	font-family: "Poker", sans-serif;
  }
 
 #hold1, #hold2, #hold3, #hold4, #hold5 {
@@ -146,14 +164,16 @@ form {
 	background-color: lightgray;
 	color: black;
 	visibility: hidden;
-	font-size: 25px;
+	font-size: 22px;
 	line-height: 44px;
+	font-family: "Poker", sans-serif;
 }
 
 .actions {
-	width: 150px;
+	/*width: 150px;*/
 	height: 40px;
 	margin: auto 0;
+	font-family: "Poker", sans-serif;
 }
 
 #bet-submit {
@@ -164,6 +184,7 @@ button {
 	border-radius: 15px;
 	border: 1px black solid;
 	font-size: 20px;
+	box-shadow: 2px 2px 4px black;
 }
 
 #bet-amount {
@@ -173,10 +194,12 @@ button {
 #hand-information {
 	width: 50%;
 	font-size: 25px;
-	margin: -20px auto 0 auto;
+	margin: 0 auto;
 	height: 25px;
 	text-align: center;
 	color: white;
+	font-family: "Poker", sans-serif;
+	text-shadow: 2px 2px 4px black;
 }
 
 #info-previous {
@@ -201,6 +224,7 @@ button {
 	height: 30px;
 	font-size: 20px;
 	border-radius: 5px;
+	font-family: "Poker", sans-serif;
 }
 
 #instructions {
@@ -216,4 +240,5 @@ button {
 	border: 2px solid black;
 	visibility: hidden;
 	color: white;
+	font-family: "Poker", sans-serif;
 }
