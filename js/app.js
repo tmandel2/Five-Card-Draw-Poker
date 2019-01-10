@@ -347,35 +347,38 @@ const game = {
 	},
 	makeBet () {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
-		if (this.whosTurn === 1) {
-			if (this.player1.currentBet + $betAmount > this.player1.wallet) {
-				return;
+		$('#bet-amount').val(null);
+		if ($betAmount > 0) {
+			if (this.whosTurn === 1) {
+				if (this.player1.currentBet + $betAmount > this.player1.wallet) {
+					return;
+				}
+				if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
+					this.player1.makeBet(this.player2.wallet - this.player1.currentBet);
+				} else {
+					this.player1.makeBet(this.player2.currentBet + $betAmount);
+				}
+			} else if (this.whosTurn === 2) {
+				if (this.player2.currentBet + $betAmount > this.player2.wallet) {
+					return;
+				}
+				if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
+					this.player2.makeBet(this.player1.wallet - this.player2.currentBet);
+				} else {
+					this.player2.makeBet(this.player1.currentBet + $betAmount);
+				}
 			}
-			if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
-				this.player1.makeBet(this.player2.wallet - this.player1.currentBet);
-			} else {
-				this.player1.makeBet(this.player2.currentBet + $betAmount);
+			if (this.player1.currentBet - this.player2.currentBet > 0) {
+				$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
+			} else if (this.player1.currentBet - this.player2.currentBet < 0) {
+				$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
+			} else if (this.player1.currentBet - this.player2.currentBet === 0) {
+				$('#call').text(`Check`);
 			}
-		} else if (this.whosTurn === 2) {
-			if (this.player2.currentBet + $betAmount > this.player2.wallet) {
-				return;
-			}
-			if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
-				this.player2.makeBet(this.player1.wallet - this.player2.currentBet);
-			} else {
-				this.player2.makeBet(this.player1.currentBet + $betAmount);
-			}
+			this.pot = this.player1.currentBet + this.player2.currentBet;
+			this.updateStats();
+			this.changeTurn();
 		}
-		if (this.player1.currentBet - this.player2.currentBet > 0) {
-			$('#call').text(`Call ${this.player1.currentBet - this.player2.currentBet}`);
-		} else if (this.player1.currentBet - this.player2.currentBet < 0) {
-			$('#call').text(`Call ${this.player2.currentBet - this.player1.currentBet}`);
-		} else if (this.player1.currentBet - this.player2.currentBet === 0) {
-			$('#call').text(`Check`);
-		}
-		this.pot = this.player1.currentBet + this.player2.currentBet;
-		this.updateStats();
-		this.changeTurn();
 	},
 	callOrDraw () {
 		if ($('#call').text() === 'Draw') {
@@ -471,6 +474,7 @@ const game = {
 				}
 			}
 			this.player1.hasDrawn = true;
+			this.showPlayer1Cards();
 		} else {
 			for (let i = 0; i <= 4; i++) {
 				if (this.player2.currentCards[i].held === false) {
@@ -480,12 +484,18 @@ const game = {
 				}
 			}
 			this.player2.hasDrawn = true;
+			this.showPlayer2Cards();
 		}
+		$('#call').css('visibility', 'hidden');
+		window.setTimeout(() => {
+			this.changeTurn()
+			}, 3500);
+		// this.changeTurn();
 		if (this.player1.hasDrawn && this.player2.hasDrawn) {
-			this.changeTurn();
-			return this.becomeBetRound();
+			window.setTimeout(() => {
+				this.becomeBetRound()
+			}, 3500);
 		}
-		this.changeTurn();
 	},
 	updateStats () {
 		$('#P1-wallet').text(`Wallet: ${this.player1.wallet - this.player1.currentBet}`);
