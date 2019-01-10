@@ -245,10 +245,12 @@ const game = {
 	player1Wins () {
 		this.player1.winHand(this.player1.currentBet);
 		this.player2.loseHand(this.player2.currentBet);
+		this.endHand();
 	},
 	player2Wins () {
 		this.player2.winHand(this.player2.currentBet);
 		this.player1.loseHand(this.player1.currentBet);
+		this.endHand();
 	},
 	checkHandValue () {
 		this.player1.previousCards = this.player1.currentCards;
@@ -262,58 +264,39 @@ const game = {
 				for (let i = 4; i >= 0; i--) {
 					if (this.player1.sortedCardValues[i] > this.player2.sortedCardValues[i]) {
 						this.player1Wins();
-						return this.endHand();
 					} else if (this.player2.sortedCardValues[i] > this.player1.sortedCardValues[i]) {
 						this.player2Wins();
-						return this.endHand();
 					}
 				}
-			} else if (this.player1.handValue() === 7) { //Four of a kind. The 4th card in the sort, is always a part of the 4 of a kind, so the tie breaker is the value of the 4 of a kind (any index of 1 through 3 would work here)
-				if (this.player1.sortedCardValues[3] > this.player2.sortedCardValues[3]) {
-					this.player1Wins();
-					return this.endHand();
-				} else if (this.player2.sortedCardValues[3] > this.player1.sortedCardValues[3]) {
-					this.player2Wins();
-					return this.endHand();
-				}
-			} else if (this.player1.handValue() === 6 || this.player1.handValue() === 3) { //Full House and 3 of a kind. The third card in the sorted values will ALWAYS be a part of the 3 of a kind. This is the tie breaker for the two types of hands.
+			} else if (this.player1.handValue() === 6 || this.player1.handValue() === 3 || this.player1.handValue() === 7) { //Full House and 3 of a kind and 4 of a kind. The third card in the sorted values will ALWAYS be a part of the 3 of a kind (and thus, four of a kind). This is the tie breaker for the three types of hands.
 				if (this.player1.sortedCardValues[2] > this.player2.sortedCardValues[2]) {
-					this.player1Wins();
-					return this.endHand();
+					this.player1Wins()
 				} else if (this.player2.sortedCardValues[2] > this.player1.sortedCardValues[2]) {
-					this.player2Wins();
-					return this.endHand();
+					this.player2Wins()
 				}
 			} else if (this.player1.handValue() === 2) {	//Two pairs. Compare the value of high pair, then low pair, then remaining card.
 				for (let i = 1; i >= 0; i--) {
 					if (this.player1.makeTwoPairArray()[i] > this.player2.makeTwoPairArray()[i]) {
 						this.player1Wins();
-						return this.endHand();
 					} else if (this.player2.makeTwoPairArray()[i] > this.player1.makeTwoPairArray()[i]) {
 						this.player2Wins();
-						return this.endHand();
 				} 
 				if (this.player1.cardValueTotal() > this.player2.cardValueTotal()) {
-					this.player1Wins();
-					return this.endHand();
+					this.player1Wins()
 				} else if (this.player2.cardValueTotal() > this.player1.cardValueTotal()) {
-					this.player2Wins();
-					return this.endHand();
+					this.player2Wins()
 					}
 				}
 			} else if (this.player1.handValue() === 1) { //One Pair. Made an array. Check which cards are worth more in pair, then high cards on through.
 				for (let i = 0; i <= 4; i++) {
 					if (this.player1.makeOnePairArray()[i] > this.player2.makeOnePairArray()[i]) {
 						this.player1Wins();
-						return this.endHand();
 					} else if (this.player2.makeOnePairArray()[i] > this.player1.makeOnePairArray()[i]) {
 						this.player2Wins();
-						return this.endHand();
 					}
 				}
 			}
 		}
-		this.endHand();
 	},
 	dealCards () {
 		this.player1.hasDrawn = false;
@@ -554,12 +537,8 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
-		// $('#player2').css('color', 'white');
-		// $('#player1').css('color', 'red');
 		$('#player1-stats').css('border', '1px dashed red');
 		$('#player2-stats').css('border', '');
-		// $('#player1-stats').css('background-color', 'salmon');
-		// $('#player2-stats').css('background-color', 'lightgray');
 		$('#user-alerts').css('visibility', 'visible');
 		$('#button-bar').css('visibility', 'hidden');
 		$('#call').css('visibility', 'hidden');
@@ -622,12 +601,8 @@ const game = {
 				$(`#hold${i}`).css('color', 'lightgray');
 			}
 		}
-		// $('#player1').css('color', 'white');
-		// $('#player2').css('color', 'red');
 		$('#player2-stats').css('border', '1px dashed red');
 		$('#player1-stats').css('border', '');
-		// $('#player1-stats').css('background-color', 'lightgray');
-		// $('#player2-stats').css('background-color', 'salmon');
 		$('#user-alerts').css('visibility', 'visible');
 		$('#button-bar').css('visibility', 'hidden');
 		$('#call').css('visibility', 'hidden');
@@ -690,8 +665,8 @@ const game = {
 			$(`img:nth-child(${i})`).attr('src', 'images/Playing_Cards/playing-cards/card_back.png');
 		}
 		$('.cards')
-			.velocity({rotateY: "-360deg"}, {
-				duration:50
+			.velocity({rotateY: "360deg"}, {
+				duration: 50
 			})
 			.velocity("fadeOut", {
 				delay: 1450,
@@ -700,7 +675,7 @@ const game = {
 			.velocity("fadeIn", {
 				duration: 1000
 			})
-			.velocity({rotateY: "360deg"}, {
+			.velocity({rotateY: "-360deg"}, {
 				delay: 1450,
 				duration: 50
 			});
@@ -724,12 +699,10 @@ const game = {
 			$('#instructions').velocity({opacity: 1}, {visibility: "visible"}, {
 				duration: 500
 			})
-			// .css('visibility', 'visible');
 		} else {
 			$('#instructions').velocity({opacity: 0}, {visibility: "hidden"}, {
 				duration: 500
 			})
-			// .css('visibility', 'hidden');
 		}
 	}
 }
