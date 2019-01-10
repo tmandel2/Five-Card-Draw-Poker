@@ -38,3 +38,6 @@ A basic web browser.
 
 The game will be able to play with more than 2 players (up to the maximum of 5 for five-card draw).
 Other poker games will be accessible.
+
+
+#### This game utilizes jQuery, Velocity, open source fonts and open source images.
