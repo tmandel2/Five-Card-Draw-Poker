@@ -1,9 +1,9 @@
-#Five Card Draw Poker with One Player Video Poker Mode
+# Five Card Draw Poker with One Player Video Poker Mode
 
-##Developed by, Timothy B. Mandel
+## Developed by, Timothy B. Mandel
 
 
-###GAMEPLAY FOR FIVE CARD DRAW POKER
+### GAMEPLAY FOR FIVE CARD DRAW POKER
 
 The game starts with the users being able to provide their name. It is a two player game, so two names entered.
 
