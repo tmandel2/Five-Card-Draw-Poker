@@ -301,7 +301,7 @@ const game = {
 	},
 	dealCards () {
 		this.player1.hasDrawn = false;
-		this.player1.hasDrawn = false;
+		this.player2.hasDrawn = false;
 		for (let i = 0; i <= 4; i++) {
 			let randomPlayer1 = this.randomCard();
 			let randomPlayer2 = this.randomCard();
@@ -660,6 +660,11 @@ const game = {
 		$('#call').text(`Check`);
 		this.updateStats();
 		if(this.checkWin()) {
+			$('#instButton').css('visibility', 'hidden');
+			$('#restart').css('visibility', 'visible');
+			$('#resart').text('Restart');
+			$('#button-bar').css('visibility', 'hidden');
+			$('#call').css('visibility', 'hidden');
 			return;
 		}
 		this.handNumber++;
@@ -697,12 +702,16 @@ const game = {
 			$('#player1').css('color', 'white');
 			$('#player2').css('color', 'red');
 			$('#player2-stats').css('border', '5px solid red');
+			$('#player2-stats').css('backgroundColor', 'salmon');
+			$('#player1-stats').css('backgroundColor', 'lightgray');
 			return true;
 		}
 		if (this.player2.wallet === 0) {
 			$('#player2').css('color', 'white');
 			$('#player1').css('color', 'red');
 			$('#player1-stats').css('border', '5px solid red');
+			$('#player1-stats').css('backgroundColor', 'salmon');
+			$('#player2-stats').css('backgroundColor', 'lightgray');
 			return true;
 		}
 	},
@@ -716,7 +725,7 @@ const game = {
 				duration: 500
 			})
 		}
-	}
+	},
 }
 
 
@@ -739,9 +748,7 @@ const onePlayerGame = {
 	remainingDeck: [],
 	pot: 0,
 	player1: null,
-	player2: null,
 	drawingRound: false,
-	bettingRound2: false,
 	handNumber: 1,
 	startGame () {
 		this.player1 = new Player($('#player1-name-input').val(), 1);
@@ -764,7 +771,7 @@ const onePlayerGame = {
 		$("#player2-stats").append(`<p id='P2-wallet'>Royal Flush: 800, Straight Flush: 50, 4 of a Kind: 25</p>`);
 		$("#player2-stats").append(`<p id='P2-bet'>Full House: 9, Flush: 6, Straight: 4</p>`);
 		$("#player2-stats").append(`<p id='P2-hand'>3 of a Kind: 3, 2 Pair: 2, Jack Pair or Better: 1</p>`);
-		$("#player2-stats").css('font-size', '14px');
+		$("#player2-stats").css('font-size', '16px');
 		$('#bet-amount').css('visibility', 'visible');
 		$('#bet-submit').css('visibility', 'visible');
 		$('#bet-submit').text('Make Your Bet');
@@ -817,7 +824,7 @@ const onePlayerGame = {
 	makeBet () {
 		this.drawingRound = true;
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
-		if ($betAmount > 0) {
+		if ($betAmount > 0 && $betAmount <= this.player1.wallet) {
 			this.player1.currentBet = $betAmount;
 			this.pot = this.player1.currentBet;
 			this.updateStats();
@@ -921,9 +928,25 @@ const onePlayerGame = {
 	},
 	checkWin () {
 		if (this.player1.wallet === 0) {
-			$('#player1').css('color', 'white');
+			$('#player1').css('color', 'red');
 			$('#player2').css('color', 'red');
 			$('#player2-stats').css('border', '5px solid red');
+			$('#player1-stats').css('border', '5px solid red');
+			$('#player2-stats p').text('You Lost!');
+			$('#player1-stats p').text('You Lost!');
+			$('#player1').text('You Lost!');
+			$('#player2').text('You Lost!');
+			$('h1').text('You Lost!');
+			$('#hand-information').text('You Lost!');
+			// $('button').text('You Lost!');
+			$('#hold1').text('You Lost!');
+			$('#hold2').text('You Lost!');
+			$('#hold3').text('You Lost!');
+			$('#hold4').text('You Lost!');
+			$('#hold5').text('You Lost!');
+			$('#instButton').css('visibility', 'hidden');
+			$('#restart').css('visibility', 'visible');
+			$('#resart').text('Restart');
 			return true;
 		}
 	},
@@ -1005,3 +1028,7 @@ $('#instButton').on('click', (e) => {
 $('#one-player-start').on('click', (e) => {
 	onePlayerGame.startGame();
 });
+
+$('#restart').on('click', (e) => {
+	window.location.reload();
+})
