@@ -181,6 +181,19 @@ form {
 	margin-right: 20px;
 }
 
+#one-player-start {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 200px;
+	height: 100px;
+	text-align: center;
+	font-family: "poker", sans-serif;
+}
+
 button {
 	border-radius: 15px;
 	border: 1px black solid;
