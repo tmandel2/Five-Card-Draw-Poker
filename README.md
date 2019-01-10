@@ -1,4 +1,9 @@
-USER STORIES FOR FIVE CARD DRAW POKER
+#Five Card Draw Poker with One Player Video Poker Mode
+
+##Developed by, Timothy B. Mandel
+
+
+###GAMEPLAY FOR FIVE CARD DRAW POKER
 
 The game starts with the users being able to provide their name. It is a two player game, so two names entered.
 
@@ -31,7 +36,7 @@ If at the end of a hand, a user has no money in their wallet, the game will disp
 
 
 
-GAME CONTENTS
+#GAME CONTENTS
 
 Deck Array:
 	Will contain card objects each with value, image location, suit.
