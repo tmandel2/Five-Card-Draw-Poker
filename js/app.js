@@ -705,7 +705,7 @@ const game = {
 				duration: 50
 			});
 	},
-	checkWin() {
+	checkWin () {
 		if (this.player1.wallet === 0) {
 			$('#player1').css('color', 'white');
 			$('#player2').css('color', 'red');
@@ -717,6 +717,19 @@ const game = {
 			$('#player1').css('color', 'red');
 			$('#player1-stats').css('border', '5px solid red');
 			return true;
+		}
+	},
+	showInstructions () {
+		if ($('#instructions').css('visibility') === 'hidden') {
+			$('#instructions').velocity({opacity: 1}, {visibility: "visible"}, {
+				duration: 500
+			})
+			// .css('visibility', 'visible');
+		} else {
+			$('#instructions').velocity({opacity: 0}, {visibility: "hidden"}, {
+				duration: 500
+			})
+			// .css('visibility', 'hidden');
 		}
 	}
 }
@@ -759,4 +772,8 @@ $('#all-in').on('click', (e) => {
 
 $('img').on('click', (e) => {
 	game.holdCard(e.target);
+});
+
+$('#instButton').on('click', (e) => {
+	game.showInstructions();
 });

@@ -188,3 +188,32 @@ button {
 	margin: -20px 0 0 0;
 	visibility: hidden;
 }
+
+
+.instructions {
+	/*visibility: hidden;*/
+}
+
+#instButton {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	height: 30px;
+	font-size: 20px;
+	border-radius: 5px;
+}
+
+#instructions {
+	position: fixed;
+	top: 20px;
+	left: 150px;
+	font-size: 20px;
+	max-width: 80vw;
+	height: 80px;
+	margin-right: 20px;
+	background-color: green;
+	border-radius: 10px;
+	border: 2px solid black;
+	visibility: hidden;
+	color: white;
+}
