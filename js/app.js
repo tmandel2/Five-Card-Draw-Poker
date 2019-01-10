@@ -593,7 +593,7 @@ const game = {
 		$('#call').css('visibility', 'visible');
 		$('#user-alerts').css('visibility', 'hidden');
 		for (let i = 1; i <= 5; i++) {
-			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+			$(`img:nth-child(${i})`).attr('src', './' + this.player1.currentCards[i - 1].image);
 		}
 	},
 	showPlayer2Cards () {
@@ -601,7 +601,7 @@ const game = {
 		$('#call').css('visibility', 'visible');
 		$('#user-alerts').css('visibility', 'hidden');
 		for (let i = 1; i <= 5; i++) {
-			$(`img:nth-child(${i})`).attr('src', this.player2.currentCards[i - 1].image);
+			$(`img:nth-child(${i})`).attr('src', './' + this.player2.currentCards[i - 1].image);
 		}
 	},
 	showPlayer2Info () {
@@ -893,7 +893,7 @@ const onePlayerGame = {
 	showPlayer1Cards () {
 		$('#button-bar').css('visibility', 'visible');
 		for (let i = 1; i <= 5; i++) {
-			$(`img:nth-child(${i})`).attr('src', this.player1.currentCards[i - 1].image);
+			$(`img:nth-child(${i})`).attr('src', './' + this.player1.currentCards[i - 1].image);
 		}
 	},
 	endHand () {
