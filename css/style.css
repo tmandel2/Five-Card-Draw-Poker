@@ -101,7 +101,7 @@ form {
 }
 
 #P2-previous-hand, #P1-previous-hand {
-	font-size: 12px;
+	font-size: 10px;
 }
 
 #player1-stats p, #player2-stats p {
@@ -109,7 +109,7 @@ form {
 }
 
 #play-area {
-	height: 50%;
+	/*height: 50%;*/
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
