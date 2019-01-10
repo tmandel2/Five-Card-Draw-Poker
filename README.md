@@ -34,7 +34,7 @@ If the player empties their wallet, they are alerted and can restart.
 
 A basic web browser.
 
-##Forthcoming Features
+## Forthcoming Features
 
 The game will be able to play with more than 2 players (up to the maximum of 5 for five-card draw).
 Other poker games will be accessible.
