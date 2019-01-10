@@ -146,6 +146,7 @@ form {
 	height: 275px;
 	width: 175px;
 	border-radius: 10px;
+	box-shadow: 2px 2px 4px black;
 }
 
 #button-bar {
