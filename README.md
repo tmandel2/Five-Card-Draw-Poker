@@ -1,32 +1,40 @@
-USER STORIES FOR VIDEO POKER
+USER STORIES FOR FIVE CARD DRAW POKER
 
-The game starts with the user being able to provide their name.
+The game starts with the users being able to provide their name. It is a two player game, so two names entered.
 
-A press of the start button will show a poker table with no cards dealt.
+A press of the start button will show a poker table with only card backs.
 
-The user will have a wallet with a certain amount of money, and be able to bet what they want before being dealt.
+The users will have a wallet with a certain amount of money, and be able to bet what they want once they have been dealt.
 
-Upon clicking a "deal" button, five cards will be shown in front of the user.
+The first player has their cards automatically dealt to them, alerting both users who should have the computer.
+
+A betting round commences with each user getting turns betting until one player either calls or folds.
+
+The drawing round has each player take a turn selecting which cards to "hold".
 
 They can click on any or all of the five cards to "hold".
 
-Upon clicking the "deal" button again, the non-held cards will be replaced with new cards.
+Upon clicking the "draw" button, the non-held cards will be replaced with new cards.
 
-The application will then alert the player if they had any hands that will pay out.
+The application will then alert the player which user should have the computer.
 
-The user wallet will be updated.
+A second round of betting commences, same as the first.
 
-The user will then click a "play again" button which will allow them to make a new bet using their updated wallet amount.
+If both players are still in the hand at the end of the second betting round, the hands are compared.
 
-If at the end of a hand, the user has no money in their wallet, the game will display "game over!" and offer a restart button.
+The user wallets will be updated.
+
+A second hand is then dealt, this time with the second user getting to bet first.
+
+If at the end of a hand, a user has no money in their wallet, the game will display the winner.
 
 
 
 
 GAME CONTENTS
 
-Card Class:
-	Will contain card value, image location, suit.
+Deck Array:
+	Will contain card objects each with value, image location, suit.
 
 Player Class:
 	Will contain wallet, name
@@ -34,4 +42,4 @@ Player Class:
 Game object:
 	Cards in play, current bet, methods for each type of winning hand, checking for win/lose.
 
-The game will cycle through the winning hand methods from best hand (royal flush) to worst (single pair, 10 or higher) so that the most valuable hand is rewarded.
+The game will cycle through the winning hand methods from best hand (straight flush) to worst (single pair, 10 or higher) so that the most valuable hand is rewarded.

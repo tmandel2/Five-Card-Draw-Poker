@@ -331,6 +331,7 @@ const game = {
 		$('#hand-information').text(`Hand Number: ${this.handNumber}`);
 	},
 	changeTurn () {
+		$('#bet-amount').val(null);
 		if (this.whosTurn === 1) {
 			this.whosTurn = 2;
 			this.showPlayer2Info();
@@ -347,10 +348,9 @@ const game = {
 	},
 	makeBet () {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
-		$('#bet-amount').val(null);
 		if ($betAmount > 0) {
 			if (this.whosTurn === 1) {
-				if (this.player1.currentBet + $betAmount > this.player1.wallet) {
+				if (this.player1.currentBet + $betAmount > this.player1.wallet || this.player2.currentBet + $betAmount > this.player1.wallet) {
 					return;
 				}
 				if ((this.player1.currentBet + $betAmount) > this.player2.wallet) {
@@ -359,7 +359,7 @@ const game = {
 					this.player1.makeBet(this.player2.currentBet + $betAmount);
 				}
 			} else if (this.whosTurn === 2) {
-				if (this.player2.currentBet + $betAmount > this.player2.wallet) {
+				if (this.player2.currentBet + $betAmount > this.player2.wallet || this.player1.currentBet + $betAmount > this.player2.wallet) {
 					return;
 				}
 				if ((this.player2.currentBet + $betAmount) > this.player1.wallet) {
@@ -435,7 +435,6 @@ const game = {
 	},
 	allIn () {
 		if (this.player2.currentBet === this.player2.wallet || this.player1.currentBet === this.player1.wallet) {
-				console.log('option1');
 				return this.makeCall();
 			}
 		if (this.whosTurn === 1) {
@@ -487,6 +486,8 @@ const game = {
 			this.showPlayer2Cards();
 		}
 		$('#call').css('visibility', 'hidden');
+		$('#user-alerts').css('visibility', 'visible');
+		$('#user-alerts').text(`Take a brief look at your new cards`);
 		window.setTimeout(() => {
 			this.changeTurn()
 			}, 3500);
