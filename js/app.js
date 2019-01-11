@@ -278,9 +278,9 @@ const game = {
 			} else if (this.player1.handValue() === 2) {	//Two pairs. Compare the value of high pair, then low pair, then remaining card.
 				for (let i = 1; i >= 0; i--) {
 					if (this.player1.makeTwoPairArray()[i] > this.player2.makeTwoPairArray()[i]) {
-						this.player1Wins();
+						return this.player1Wins();
 					} else if (this.player2.makeTwoPairArray()[i] > this.player1.makeTwoPairArray()[i]) {
-						this.player2Wins();
+						return this.player2Wins();
 				} 
 				if (this.player1.cardValueTotal() > this.player2.cardValueTotal()) {
 					this.player1Wins()
@@ -291,9 +291,9 @@ const game = {
 			} else if (this.player1.handValue() === 1) { //One Pair. Made an array. Check which cards are worth more in pair, then high cards on through.
 				for (let i = 0; i <= 4; i++) {
 					if (this.player1.makeOnePairArray()[i] > this.player2.makeOnePairArray()[i]) {
-						this.player1Wins();
+						return this.player1Wins();
 					} else if (this.player2.makeOnePairArray()[i] > this.player1.makeOnePairArray()[i]) {
-						this.player2Wins();
+						return this.player2Wins();
 					}
 				}
 			}
