@@ -704,6 +704,10 @@ const game = {
 			$('#player2-stats').css('border', '5px solid red');
 			$('#player2-stats').css('backgroundColor', 'salmon');
 			$('#player1-stats').css('backgroundColor', 'lightgray');
+			$('#player2-stats').css('opacity', 1);
+			$('#player1-stats').css('opacity', 1);
+			$('#player1').css('opacity', 1);
+			$('#player2').css('opacity', 1);
 			return true;
 		}
 		if (this.player2.wallet === 0) {
@@ -712,6 +716,10 @@ const game = {
 			$('#player1-stats').css('border', '5px solid red');
 			$('#player1-stats').css('backgroundColor', 'salmon');
 			$('#player2-stats').css('backgroundColor', 'lightgray');
+			$('#player2-stats').css('opacity', 1);
+			$('#player1-stats').css('opacity', 1);
+			$('#player1').css('opacity', 1);
+			$('#player2').css('opacity', 1);
 			return true;
 		}
 	},
