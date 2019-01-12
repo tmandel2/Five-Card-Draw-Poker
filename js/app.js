@@ -46,6 +46,7 @@ class Player {
 	handValue () {
 		this.sortedCardValues = [];
 		this.cardSuits = [];
+		this.sortedAltValues = [];
 		let cardAltValues = [];
 		for (let i = 0; i <= this.currentCards.length - 1; i++) {
 			this.sortedCardValues[i] = this.currentCards[i].value;
@@ -66,8 +67,12 @@ class Player {
 		} else if (this.checkFlush(this.cardSuits)) {
 			this.lastHand = 'Flush';
 			return 5;
-		} else if (this.checkStraight(this.sortedCardValues) || this.checkStraight(cardAltValues)) {
+		} else if (this.checkStraight(this.sortedCardValues)) {
 			this.lastHand = 'Straight';
+			return 4;
+		} else if (this.checkStraight(cardAltValues)) {
+			this.lastHand = 'Straight';
+			this.sortedCardValues = cardAltValues;
 			return 4;
 		} else if (this.checkThreeOfAKind(this.sortedCardValues)) {
 			this.lastHand = 'Three of a kind';
@@ -264,16 +269,16 @@ const game = {
 			if (this.player1.handValue() === 8 || this.player1.handValue() === 5 || this.player1.handValue() === 4 || this.player1.handValue() === 0) {  //Straight Flushes, flushes, straights, no hand all have a tie breaker of high card, then second high card, then third high card, etc.
 				for (let i = 4; i >= 0; i--) {
 					if (this.player1.sortedCardValues[i] > this.player2.sortedCardValues[i]) {
-						this.player1Wins();
+						return this.player1Wins();
 					} else if (this.player2.sortedCardValues[i] > this.player1.sortedCardValues[i]) {
-						this.player2Wins();
+						return this.player2Wins();
 					}
 				}
 			} else if (this.player1.handValue() === 6 || this.player1.handValue() === 3 || this.player1.handValue() === 7) { //Full House and 3 of a kind and 4 of a kind. The third card in the sorted values will ALWAYS be a part of the 3 of a kind (and thus, four of a kind). This is the tie breaker for the three types of hands.
 				if (this.player1.sortedCardValues[2] > this.player2.sortedCardValues[2]) {
-					this.player1Wins()
+					return this.player1Wins()
 				} else if (this.player2.sortedCardValues[2] > this.player1.sortedCardValues[2]) {
-					this.player2Wins()
+					return this.player2Wins()
 				}
 			} else if (this.player1.handValue() === 2) {	//Two pairs. Compare the value of high pair, then low pair, then remaining card.
 				for (let i = 1; i >= 0; i--) {
@@ -283,9 +288,9 @@ const game = {
 						return this.player2Wins();
 				} 
 				if (this.player1.cardValueTotal() > this.player2.cardValueTotal()) {
-					this.player1Wins()
+					return this.player1Wins()
 				} else if (this.player2.cardValueTotal() > this.player1.cardValueTotal()) {
-					this.player2Wins()
+					return this.player2Wins()
 					}
 				}
 			} else if (this.player1.handValue() === 1) { //One Pair. Made an array. Check which cards are worth more in pair, then high cards on through.
