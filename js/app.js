@@ -1,5 +1,3 @@
-// Need a player class
-
 // Two players, give their name
 // They will have a wallet, containing all of their money
 // They will be able to bet a current amount
@@ -8,6 +6,8 @@
 // They will call or increase bet
 // They will have cards in their hands
 
+// Game was designed from inception as a two player game
+// Player class is instantiated 2x, one for player 1, one for player 2.
 class Player {
 	constructor (playerName, playerNumber) {
 		this.name = playerName,
@@ -43,6 +43,8 @@ class Player {
 	compareValues (num1, num2) {
 		return num1 - num2;
 	}
+	// One part of the heavy lifting. This will assign a numeric value to the hand that the player has.
+	// Helps to determine winner, or if a tie breaker is needed.
 	handValue () {
 		this.sortedCardValues = [];
 		this.cardSuits = [];
@@ -88,6 +90,7 @@ class Player {
 			return 0;
 		}
 	}
+	// The next collection of methods are to check for specific hand values.
 	checkFlush (suitArray) {
 		let suitCheck = 0;
 		for (let i = 1; i <= suitArray.length - 1; i++) {
@@ -179,6 +182,7 @@ class Player {
 		}
 		return pairCheck;
 	}
+	// Creates arrays to organize the five card hand by card value if there are pairs involved.
 	makeTwoPairArray () {
 		let twoPairArray = [];
 		for (let i = 4; i >= 1; i--) {
@@ -213,7 +217,7 @@ class Player {
 
 // Game Object
 
-
+// The game has 2 betting rounds, and 1 drawig round.
 const game = {
 	cardsInPlay: [],
 	remainingDeck: [],
@@ -258,6 +262,7 @@ const game = {
 		this.player1.loseHand(this.player1.currentBet);
 		this.endHand();
 	},
+	// This compares the value of the players hands (determined in the player class), and then if a tie, it will compare the value of each used card.
 	checkHandValue () {
 		this.player1.previousCards = this.player1.currentCards;
 		this.player2.previousCards = this.player2.currentCards;
@@ -304,6 +309,7 @@ const game = {
 			}
 		}
 	},
+	// Take cards from the deck array, puts them in the players' cards arrays. Does so at random.
 	dealCards () {
 		this.player1.hasDrawn = false;
 		this.player2.hasDrawn = false;
@@ -352,6 +358,7 @@ const game = {
 			}, 5000);
 		}
 	},
+	// Bets are restricted to how much a player has. prevents illegal bets.
 	makeBet () {
 		let $betAmount = parseInt($('#bet-amount').val(), 10);
 		if ($betAmount > 0) {
@@ -439,6 +446,7 @@ const game = {
 		}
 		this.endHand();
 	},
+	// Moving all in will put the lesser amount of the two players chip totals.
 	allIn () {
 		if (this.player2.currentBet === this.player2.wallet || this.player1.currentBet === this.player1.wallet) {
 				return this.makeCall();
@@ -454,6 +462,7 @@ const game = {
 		this.updateStats();
 		this.changeTurn();
 	},
+	// This will happen when the last player checks or calls
 	becomeDrawRound () {
 		$('.actions').css('visibility', 'hidden');
 		$('#call').text('Draw');
@@ -462,6 +471,7 @@ const game = {
 		this.drawingRound = true;
 		$('#hand-information').text(`Click on Card to Hold It`);
 	},
+	// After players receive cards
 	becomeBetRound () {
 		$('.actions').css('visibility', '');
 		$('#call').text('Check');
@@ -504,6 +514,7 @@ const game = {
 			}, 3500);
 		}
 	},
+	// This makes the client view updates with the current status of the game at all points.
 	updateStats () {
 		$('#P1-wallet').text(`Wallet: ${this.player1.wallet - this.player1.currentBet}`);
 		$('#P1-bet').text(`Current Bet: ${this.player1.currentBet}`);
@@ -539,6 +550,7 @@ const game = {
 			}
 		}
 	},
+	// This is the randomizer for dealing cards out.
 	randomCard () {
 		let randomNumber = Math.floor(Math.random() * deck.length);
 		let dealtCard = deck.slice(randomNumber, randomNumber + 1);
@@ -702,6 +714,7 @@ const game = {
 				duration: 50
 			});
 	},
+	// This will check at the end of the hand whether a player is out of money. If so, there are some graphics that display
 	checkWin () {
 		if (this.player1.wallet === 0) {
 			$('#player1').css('color', 'white');
@@ -728,6 +741,7 @@ const game = {
 			return true;
 		}
 	},
+	// Pops open the modal for instructions
 	showInstructions () {
 		if ($('#instructions').css('visibility') === 'hidden') {
 			$('#instructions').velocity({opacity: 1}, {visibility: "visible"}, {
@@ -752,8 +766,9 @@ const game = {
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
-
-
+// The two player game was made, so a video poker version was created.
+// This is modular and could be popped out into a separate program.
+// This was created in a day.
 
 const onePlayerGame = {
 	onePlayerGame: false,

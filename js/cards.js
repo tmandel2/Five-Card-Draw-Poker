@@ -1,3 +1,4 @@
+// The deck. An array of 52 card objects to use in the attached game. This file could be moved to any other card game app.
 const deck = [
 	{
 		held: false,
